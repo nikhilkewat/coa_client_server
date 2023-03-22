@@ -1,0 +1,452 @@
+// @import url("https://fonts.gstatic.com");
+// @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap");
+
+// *,
+// *:before,
+// *:after {
+//   padding: 0;
+//   margin: 0;
+//   box-sizing: border-box;
+// }
+// // body{
+// //     background-color: #080710;
+// // }
+// .dark-background {
+//   background-color: #080710;
+//   height: 100%;
+//   width: 100%;
+//   position: absolute;
+// }
+// .background {
+//   width: 430px;
+//   height: 520px;
+//   position: absolute;
+//   transform: translate(-50%, -50%);
+//   left: 50%;
+//   top: 50%;
+// }
+// .background .shape {
+//   height: 200px;
+//   width: 200px;
+//   position: absolute;
+//   border-radius: 50%;
+// }
+// .shape:first-child {
+//   background: linear-gradient(#1845ad, #23a2f6);
+//   left: -80px;
+//   top: -80px;
+// }
+// .shape:last-child {
+//   background: linear-gradient(to right, #ff512f, #f09819);
+//   right: -80px;
+//   bottom: -80px;
+// }
+// .form {
+//   height: 520px;
+//   width: 400px;
+//   background-color: rgba(255, 255, 255, 0.13);
+//   position: absolute;
+//   transform: translate(-50%, -50%);
+//   top: 50%;
+//   left: 50%;
+//   border-radius: 10px;
+//   backdrop-filter: blur(10px);
+//   border: 2px solid rgba(255, 255, 255, 0.1);
+//   box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+//   padding: 50px 35px;
+// }
+// .form * {
+//   font-family: "Poppins", sans-serif;
+//   color: #ffffff;
+//   letter-spacing: 0.5px;
+//   outline: none;
+//   border: none;
+// }
+// .form h3 {
+//   font-size: 32px;
+//   font-weight: 500;
+//   line-height: 42px;
+//   text-align: center;
+// }
+
+// .login {
+//   & label {
+//     display: block;
+//     margin-top: 30px;
+//     font-size: 16px;
+//     font-weight: 500;
+//   }
+//   & input {
+//     display: block;
+//     height: 50px;
+//     width: 100%;
+//     background-color: rgba(255, 255, 255, 0.07);
+//     border-radius: 3px;
+//     padding: 0 10px;
+//     margin-top: 8px;
+//     font-size: 14px;
+//     font-weight: 300;
+//     &::placeholder {
+//       color: #e5e5e5;
+//     }
+//   }
+
+//   & button {
+//     margin-top: 50px;
+//     width: 100%;
+//     background-color: #ffffff;
+//     color: #080710;
+//     padding: 15px 0;
+//     font-size: 18px;
+//     font-weight: 600;
+//     border-radius: 5px;
+//     cursor: pointer;
+//   }
+//   .social {
+//     margin-top: 30px;
+//     display: flex;
+//   }
+//   .social div {
+//     background: red;
+//     width: 150px;
+//     border-radius: 3px;
+//     padding: 5px 10px 10px 5px;
+//     background-color: rgba(255, 255, 255, 0.27);
+//     color: #eaf0fb;
+//     text-align: center;
+//   }
+//   .social div:hover {
+//     background-color: rgba(255, 255, 255, 0.47);
+//   }
+//   .social .fb {
+//     margin-left: 25px;
+//   }
+//   .social i {
+//     margin-right: 4px;
+//   }
+// }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-control {
+  line-height: 1.5;
+}
+.loginFormBg {
+  /* background: url("../img/controla-bg.jpg") no-repeat center;
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover; */
+
+  /* background: url("../img/controla-bg.jpg") no-repeat center; */
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  width: 100%;
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  padding: 15px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+  animation: myanimation 10s ease infinite;
+  overflow: hidden;
+  /* animation: myanimation 15s ease infinite; */
+  /* animation: animStar 150s linear infinite; */
+}
+
+@keyframes myanimation {
+  0% {
+    background-color: red;
+  }
+  25% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: green;
+  }
+  75% {
+    background-color: brown;
+  }
+  100% {
+    background-color: red;
+  }
+  /* 0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  } */
+}
+
+.loginFormBg::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, #000046, #1CB5E0);
+  /* background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%); */
+  // background: radial-gradient(
+  //   ellipse at bottom,
+  //   #1CB5E0,
+  //   #3b085c,
+  //   #40024d,
+  //   #41003e,
+  //   #3e0132
+  // );
+  /* background: rgba(255,255,255,0.9); */
+  // background: -webkit-linear-gradient(
+  //   left,
+  //   rgba(0, 168, 255, 0.9),
+  //   rgba(185, 0, 255, 0.4)
+  // );
+  /* background: -o-linear-gradient(left, to bottom, #2e126d, #3b085c, #40024d, #41003e, #3e0132);
+  background: -moz-linear-gradient(left, to bottom, #2e126d, #3b085c, #40024d, #41003e, #3e0132);
+  background: linear-gradient(left, to bottom, #2e126d, #3b085c, #40024d, #41003e, #3e0132);  
+  background: linear-gradient(to bottom, #2e126d, #3b085c, #40024d, #41003e, #3e0132);   */
+  pointer-events: none;
+  /* opacity: 0.4123452; */
+}
+.rootDiv {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.rootDiv > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.loginForm {
+  /* background: rgba(255, 255, 255, 0.95); */
+  background: rgba(255, 255, 255, 0.6);
+  padding: 25px 15px 20px 15px;
+  border-radius: 8px;
+  width: 320px;
+  font-size: 14px;
+  margin: auto;
+  -webkit-box-shadow: 0px 0px 11px 0px #fbfbfb;
+  -moz-box-shadow: 0px 0px 11px 0px #fbfbfb;
+  box-shadow: 0px 0px 11px 0px #fbfbfb;
+}
+.loginForm-header .logo-img {
+  height: 45px;
+  margin: auto;
+  text-align: center;
+}
+.loginForm-body {
+  padding: 25px 10px 5px 10px;
+}
+.loginForm .form-group .form-control {
+  border-radius: 4px;
+  box-shadow: none;
+  font-size: 14px;
+  position: relative;
+  padding-left: 2rem !important;
+  line-height: 1.5;
+}
+.loginForm .form-group.eyeSlash,
+.loginForm .userIcon,
+.loginForm .university,
+.loginForm .lockIcon,
+.loginForm .email,
+.loginForm .phone {
+  position: relative;
+  overflow: hidden;
+}
+.loginForm .form-group.eyeSlash input[type="password"],
+.loginForm .form-group.eyeSlash input[type="input"] {
+  padding-right: 34px;
+}
+.loginForm .form-group .loginShowInput {
+  position: absolute;
+  right: 0;
+  padding: 9px 12px 9px 6px;
+  line-height: 1.2;
+  cursor: pointer;
+  font-size: 14px;
+  z-index: 1;
+}
+.loginForm .loginFormBtn {
+  display: block;
+  width: 100%;
+  padding: 6px;
+  font-size: 16px;
+  border-radius: 5fpx !important;
+  margin: 20px 0px 10px;
+  box-shadow: none !important;
+  background: linear-gradient(90deg, #000046 1%, #1cb5e0 78%) !important;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1CB5E0",endColorstr="#000046",GradientType=1);
+  border: none;
+}
+.loginForm span {
+  font-size: 13px;
+}
+.loginForm .loginsocialIcon li {
+  display: inline-block;
+}
+.loginForm .loginsocialIcon li:last-child {
+  margin-left: 8px;
+}
+.loginForm .loginsocialIcon li a {
+  height: 35px;
+  width: 35px;
+  border-radius: 5%;
+  display: inline-block;
+  color: #fff !important;
+  text-align: center;
+  -webkit-box-shadow: 2px 2px 15px -6px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 2px 2px 15px -6px rgba(0, 0, 0, 0.75);
+  box-shadow: 2px 2px 15px -6px rgba(0, 0, 0, 0.75);
+  font-size: 16px;
+  line-height: 2.2;
+}
+.Icon-facebook {
+  background: #3b5998;
+}
+.Icon-instagram {
+  background: #d6249f;
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.25);
+}
+.loginForm .loginsplash-footer > span {
+  padding: 10px 0px;
+  display: inline-block;
+  border-bottom: 2px solid #c3c3c32e;
+  margin-bottom: 14px;
+}
+
+.loginForm .userIcon:after,
+.loginForm .lockIcon:after,
+.loginForm .university:after,
+.loginForm .email:after,
+.loginForm .phone:after {
+  font-family: "FontAwesome";
+  position: absolute;
+  top: 5px;
+  left: 12px;
+  content: "\F007";
+  line-height: 1.5;
+}
+.loginForm .lockIcon:after {
+  content: "\f023";
+}
+.loginForm .university:after {
+  content: "\f19c";
+}
+.loginForm .email:after {
+  content: "\f0e0";
+}
+.loginForm .phone:after {
+  content: "\f095";
+}
+.action_btn {
+  background: transparent !important;
+}
+
+// background: #000046;  /* fallback for old browsers */
+// background: -webkit-linear-gradient(to right, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
+// background: linear-gradient(to right, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+@function multiple-box-shadow($n) {
+  $value: "#{random(2000)}px #{random(2000)}px #FFF";
+  @for $i from 2 through $n {
+    $value: "#{$value} , #{random(2000)}px #{random(2000)}px #FFF";
+  }
+
+  @return unquote($value);
+}
+
+$shadows-small: multiple-box-shadow(700);
+$shadows-medium: multiple-box-shadow(200);
+$shadows-big: multiple-box-shadow(100);
+
+#stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: $shadows-small;
+  animation: animStar 50s linear infinite;
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow: $shadows-small;
+  }
+}
+
+#stars2 {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: $shadows-medium;
+  animation: animStar 100s linear infinite;
+
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: $shadows-medium;
+  }
+}
+
+#stars3 {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: $shadows-big;
+  animation: animStar 150s linear infinite;
+
+  &::after {
+    content: " ";
+    position: absolute;
+    top: 2000px;
+    width: 3px;
+    height: 3px;
+    background: transparent;
+    box-shadow: $shadows-big;
+  }
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}

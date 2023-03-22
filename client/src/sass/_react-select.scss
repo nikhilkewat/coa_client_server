@@ -1,0 +1,22 @@
+.react-select {
+  & div[class$="-control"] {
+    min-height: unset;
+    height: 32.5px;
+    & div[class$="-ValueContainer"] {
+      padding: 0px 8px;
+    }
+    & div[class$="-IndicatorsContainer"] {
+      & div[class$="-indicatorContainer"] {
+        padding: 4px;
+      }
+    }
+  }
+}
+
+.error {
+  @extend .react-select;
+  border-radius: 5px;
+  & div[class$="-control"] {
+    background-color: #fbecf2;
+  }
+}
