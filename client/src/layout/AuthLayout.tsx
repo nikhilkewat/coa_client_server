@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { RoutePages, UserMaster } from "../components";
+import { ProductMaster, RoutePages, COATestMaster, UserMaster, COATemplate } from "../components";
 import Dashboard from "../components/Dashboard";
 import AppHeaderTop from "./AppHeaderTop";
 import AppSideBar from "./AppSideBar";
@@ -27,9 +27,9 @@ const AuthLayout = () => {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/user" element={<UserMaster />} />
-              <Route path="/product" element={<RoutePages />} />
-              <Route path="/test" element={<RoutePages />} />
-              <Route path="/template" element={<RoutePages />} />
+              <Route path="/product" element={<ProductMaster />} />
+              <Route path="/test" element={<COATestMaster />} />
+              <Route path="/template" element={<COATemplate />} />
               <Route path="/inittest" element={<RoutePages />} />
               <Route path="/report1" element={<RoutePages />} />
               <Route path="/report2" element={<RoutePages />} />

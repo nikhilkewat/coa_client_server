@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import React, { useCallback, useMemo, useRef } from "react";
 import {
   AgGridReact as ReactAgGrid,
   AgGridReactProps,
@@ -10,7 +10,7 @@ export const AgGridReact = (props: AgGridReactProps | AgReactUiProps | {}) => {
   const gridRef = useRef<ReactAgGrid>(null);
   const defaultColDef = useMemo(() => {
     return {
-      filter: 'agTextColumnFilter',
+      filter: "agTextColumnFilter",
       floatingFilter: true,
       resizable: true
     };
@@ -53,12 +53,12 @@ export const AgGridReact = (props: AgGridReactProps | AgReactUiProps | {}) => {
   }, []);
 
   return (
-    <ReactAgGrid
-      ref={gridRef}
-      defaultColDef={defaultColDef}
-      onFirstDataRendered={onFirstDataRendered}
-      onGridReady={onGridReady}
-      {...props}
-    ></ReactAgGrid>
+      <ReactAgGrid
+        ref={gridRef}
+        defaultColDef={defaultColDef}
+        onFirstDataRendered={onFirstDataRendered}
+        onGridReady={onGridReady}
+        {...props}
+      ></ReactAgGrid>
   );
 };

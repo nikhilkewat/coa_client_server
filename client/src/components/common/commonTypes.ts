@@ -1,6 +1,6 @@
 export type SelectedOption = {
-    value: string | number;
-    label: string;
+    value?: string | number;
+    label?: string;
     other?: any;
 }
 
@@ -14,3 +14,8 @@ export type Actions = {
     payload: any;
   };
   
+export type LogParams = {
+    isActive?: number;
+    isDelete?: number;
+    devRemarks?: string;
+}

@@ -1,3 +1,6 @@
 export const USER_MASTER_LIST = "USER_MASTER_LIST";
 
+export const PRODUCTS_LIST = "PRODUCTS_LIST";
+export const TEST_MASTER_LIST = "TEST_MASTER_LIST";
+export const TEMPLATE_LIST = "TEMPLATE_LIST";
 

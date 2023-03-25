@@ -1,4 +1,6 @@
+import React from "react";
 import { keys } from "../../config/dev";
+import { useAppSelector } from "../../redux/store/hooks";
 
 export type GridActionProps = {
   onEditClick?: (val: any) => void;
@@ -16,6 +18,8 @@ export type GridActionProps = {
 };
 
 const GridActions = (props: GridActionProps) => {
+  const reducers = useAppSelector((obj) => obj);
+  const Context = React.createContext({ ...reducers });
   const {
     data,
     onEditClick = () => {},
@@ -28,70 +32,69 @@ const GridActions = (props: GridActionProps) => {
     showDeleteLabel = false,
     showViewLabel = false,
     showViewButton = false,
-    viewLabel = "View",
+    viewLabel = "View"
   } = props;
   return (
-    // <span className="agGrid-button-container gt-2">
-    <div className="d-flex d-flex justify-content-evenly align-items-center align-self-center">
-      {/* <div className="col"> */}
-      {showEditButton && (
-        <>
-          <img
-            src={require("../../Assets/images/pencil.png")}
-            width={25}
-            style={{ cursor: "pointer" }}
-            alt="edit"
-            onClick={() => onEditClick(data)}
-          ></img>
-          {showEditLabel && editLabel}
-        </>
-        // <button
-        //   className="btn btn-success btn-sm agGrid-button"
-        //   type="button"
-        //   onClick={() => onEditClick(data)}
-        // >
-        //   <i className="fa-solid fa-pencil"></i>
-        //   {showEditLabel && editLabel}
-        // </button>
-      )}
-      {/* </div> */}
-      {/* <div className="col"> */}
-      {showDeleteButton && (
-        <>
-          <img
-            src={require("../../Assets/images/trash.png")}
-            width={25}
-            style={{ cursor: "pointer" }}
-            alt="delete"
-            onClick={() => onDeleteClick(data)}
-          ></img>
-          {showDeleteLabel && deleteLabel}
-        </>
-        // <button
-        //   className="btn btn-danger btn-sm agGrid-button"
-        //   type="button"
-        //   onClick={() => onDeleteClick(data)}
-        // >
-        //   <i className="fa-solid fa-trash"></i>
-        //   {showDeleteLabel && deleteLabel}
-        // </button>
-      )}
-      {/* </div> */}
-      {showViewButton && (
-        // <div className="col">
-        <a
-          href={`${keys.ServicePath}/${data.data.filePath}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-info btn-sm agGrid-button"
-        >
-          <i className="fa-solid fa-eye"></i>
-          {showViewLabel && viewLabel}
-        </a>
-        // </div>
-      )}
-    </div>
-    // </span>
+    <Context.Provider value={{ ...reducers }}>
+      <div className="d-flex d-flex justify-content-evenly align-items-center align-self-center">
+        {showEditButton && (
+          <>
+            <img
+              src={require("../../Assets/images/pencil.png")}
+              width={25}
+              style={{ cursor: "pointer" }}
+              alt="edit"
+              onClick={() => onEditClick(data)}
+            ></img>
+            {showEditLabel && editLabel}
+          </>
+          // <button
+          //   className="btn btn-success btn-sm agGrid-button"
+          //   type="button"
+          //   onClick={() => onEditClick(data)}
+          // >
+          //   <i className="fa-solid fa-pencil"></i>
+          //   {showEditLabel && editLabel}
+          // </button>
+        )}
+        {/* </div> */}
+        {/* <div className="col"> */}
+        {showDeleteButton && (
+          <>
+            <img
+              src={require("../../Assets/images/trash.png")}
+              width={25}
+              style={{ cursor: "pointer" }}
+              alt="delete"
+              onClick={() => onDeleteClick(data)}
+            ></img>
+            {showDeleteLabel && deleteLabel}
+          </>
+          // <button
+          //   className="btn btn-danger btn-sm agGrid-button"
+          //   type="button"
+          //   onClick={() => onDeleteClick(data)}
+          // >
+          //   <i className="fa-solid fa-trash"></i>
+          //   {showDeleteLabel && deleteLabel}
+          // </button>
+        )}
+        {/* </div> */}
+        {showViewButton && (
+          // <div className="col">
+          <a
+            href={`${keys.ServicePath}/${data.data.filePath}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-info btn-sm agGrid-button"
+          >
+            <i className="fa-solid fa-eye"></i>
+            {showViewLabel && viewLabel}
+          </a>
+          // </div>
+        )}
+      </div>
+    </Context.Provider>
   );
 };
 

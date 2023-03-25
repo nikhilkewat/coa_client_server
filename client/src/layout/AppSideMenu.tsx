@@ -42,7 +42,7 @@ const AppSideMenu = () => {
                 className="text-decoration-none sidebar-link"
                 state={'TEST MASTER'}
               >
-                {`Product Test`}
+                {`COA Test Master`}
               </Link>
             </li>
 
