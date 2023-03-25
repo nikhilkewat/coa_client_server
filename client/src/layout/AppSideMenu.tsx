@@ -52,7 +52,7 @@ const AppSideMenu = () => {
                 className="text-decoration-none sidebar-link"
                 state={'TEMPLATE'}
               >
-                {`Template`}
+                {`COA Template`}
               </Link>
             </li>
           </ul>
@@ -75,7 +75,7 @@ const AppSideMenu = () => {
                   className="text-decoration-none sidebar-link"
                   state={'START TEST'}
                 >
-                  {`Initiate Test`}
+                  {`Generate COA Test`}
                 </Link>
               </li>
             </li>

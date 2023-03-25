@@ -3,16 +3,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { LogParams, SelectedOption } from "../common/commonTypes";
-import { templateValidationSchema } from "./testMasterValidationSchema";
+import { LogParams } from "../common/commonTypes";
+import { templateValidationSchema } from "./templateValidationSchema";
 import { toast } from "react-toastify";
-import { saveTestMaster, get_testmaster_list, deleteTestMaster } from "../../redux/actions/testmaster";
-import { get_product_list } from "../../redux/actions/products";
+import { get_testmaster_list } from "../../redux/actions/testmaster";
 import { useAppSelector } from "../../redux/store/hooks";
 import { MultiValue } from "react-select";
 import { ProductTypes } from "../Product/useProductHooks";
 import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
-import { get_templates_list, saveTemplateMaster } from "../../redux/actions/templates";
+import { deleteTemplateMaster, get_templates_list, saveTemplateMaster } from "../../redux/actions/templates";
 
 
 export type COATemplateTypes = {
@@ -82,7 +81,7 @@ export const useCOATemplateHooks = () => {
 
     const onGridDelete = (data: any) => {
         dispatch(
-            deleteTestMaster(data.data.id, {
+            deleteTemplateMaster(data.data.id, {
                 onSuccess: () => {
                     getTemplateList();
                     toast.success("Template Deleted!!!");
@@ -91,8 +90,6 @@ export const useCOATemplateHooks = () => {
             })
         );;
     }
-
-
 
     useEffect(() => {
         getTemplateList();

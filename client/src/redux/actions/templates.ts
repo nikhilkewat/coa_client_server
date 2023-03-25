@@ -2,7 +2,7 @@ import { Actions, Callbacks, COATemplateTypes } from "../../types";
 import axios from "../../components/common/axios";
 import { keys } from "../../config/dev";
 import { AxiosResponse } from "axios";
-import { TEMPLATE_LIST, TEST_MASTER_LIST } from "../constTypes";
+import { TEMPLATE_LIST } from "../constTypes";
 
 
 export const saveTemplateMaster = (data: COATemplateTypes, { onSuccess, onError }: Callbacks) => async () => {
@@ -20,7 +20,7 @@ export const saveTemplateMaster = (data: COATemplateTypes, { onSuccess, onError 
     })
 }
 
-export const deleteTestMaster = (id: number, { onSuccess, onError }: Callbacks) => async () => {
+export const deleteTemplateMaster = (id: number, { onSuccess, onError }: Callbacks) => async () => {
 
     await axios({
         method: "delete",

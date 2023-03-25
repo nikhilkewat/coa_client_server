@@ -2,7 +2,7 @@ import { Actions, Callbacks, TestMasterTypes } from "../../types";
 import axios from "../../components/common/axios";
 import { keys } from "../../config/dev";
 import { AxiosResponse } from "axios";
-import { PRODUCTS_LIST, TEST_MASTER_LIST } from "../constTypes";
+import {  TEST_MASTER_LIST } from "../constTypes";
 
 
 export const saveTestMaster = (data: TestMasterTypes, { onSuccess, onError }: Callbacks) => async () => {

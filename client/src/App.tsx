@@ -8,6 +8,7 @@ import "ag-grid-enterprise";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-balham.css";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import "react-datepicker/dist/react-datepicker.css";
 import "./css/ag-theme.css";
 
 const loading = (
