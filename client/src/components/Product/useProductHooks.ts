@@ -13,8 +13,8 @@ export type ProductTypes = {
     productCode: string;
     productName: string;
     casNo: string;
-    modecularWeight: number;
-    molecularWeight?: number;
+    molecularWeight: number;
+    molecularFormula?: string;
     
 } & LogParams & SelectedOption;
 
@@ -23,8 +23,8 @@ const intialValues: ProductTypes = {
     productCode: '',
     productName: '',
     casNo: '',
-    modecularWeight: 0,
-    molecularWeight: 0
+    molecularWeight: 0,
+    molecularFormula: ''
 }
 
 export const useProductHooks = () => {

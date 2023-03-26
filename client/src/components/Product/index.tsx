@@ -24,8 +24,8 @@ const ProductMaster = () => {
     { field: "productCode", headerName: "Code" },
     { field: "productName", headerName: "Product Name" },
     { field: "casNo", headerName: "CAS No." },
-    { field: "modecularWeight", headerName: "Modecular Wt." },
     { field: "molecularWeight", headerName: "Molecular Wt." },
+    { field: "molecularFormula", headerName: "Molecular Formula" },
     {
       headerName: "Actions",
       width: 100,
@@ -122,16 +122,6 @@ const ProductMaster = () => {
                 )}
               </div>
               <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                <label className="form-label">Modecular Weight</label>
-                <input
-                  className={`form-control`}
-                  name={"modecularWeight"}
-                  placeholder="Modecular Weight"
-                  onChange={handleChange}
-                  value={formData.modecularWeight}
-                />
-              </div>
-              <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                 <label className="form-label">Molecular Weight</label>
                 <input
                   className={`form-control`}
@@ -139,6 +129,16 @@ const ProductMaster = () => {
                   placeholder="Molecular Weight"
                   onChange={handleChange}
                   value={formData.molecularWeight}
+                />
+              </div>
+              <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                <label className="form-label">Molecular Formula</label>
+                <input
+                  className={`form-control`}
+                  name={"molecularFormula"}
+                  placeholder="Molecular Formula"
+                  onChange={handleChange}
+                  value={formData.molecularFormula}
                 />
               </div>
             </div>

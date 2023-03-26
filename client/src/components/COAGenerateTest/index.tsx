@@ -107,18 +107,18 @@ const COAReportMaster = () => {
                   name={"testResultsGroupConcat"}
                   placeholder="Result"
                   onChange={handleChange}
-                  value={formData.selectedProduct?.other?.modecularWeight}
+                  value={formData.selectedProduct?.other?.molecularWeight}
                 />
               </div>
               <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
-                <label className="form-label">Molecular Wt.</label>
+                <label className="form-label">Molecular Formula</label>
                 <input
                   disabled={true}
                   className={`form-control `}
                   name={"testResultsGroupConcat"}
                   placeholder="Result"
                   onChange={handleChange}
-                  value={formData.selectedProduct?.other?.molecularWeight}
+                  value={formData.selectedProduct?.other?.molecularFormula}
                 />
               </div>
             
