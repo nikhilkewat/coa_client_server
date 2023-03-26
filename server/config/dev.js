@@ -14,4 +14,5 @@ const dbConfig = {
 module.exports = {
   servicePath: "http://localhost:5010/",
   dbConfig,
+  Secret: "kLUBNZGcCwGeG2vhs14oN8qvvd",
 };

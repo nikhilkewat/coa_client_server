@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../App";
+import { useAuth } from "./AuthProvider";
 import "./_index.scss";
 type LocationProps = {
   state: {
@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    auth.signin(login?.username!, () => {
+    auth.signin(login, () => {
       // Send them back to the page they tried to visit when they were
       // redirected to the login page. Use { replace: true } so we don't create
       // another entry in the history stack for the login page.  This means that
@@ -38,66 +38,13 @@ const Login = () => {
 
   const [inputType, setInputType] = useState("password");
   return (
-    // <div className="dark-background">
-    //   <div className="background">
-    //     <div className="shape"></div>
-    //     <div className="shape"></div>
-    //   </div>
-    //   <form onSubmit={handleSubmit} className="form login">
-    //     <h3>Login Here</h3>
-
-    //     <label htmlFor="username">Username</label>
-    //     <input
-    //       type="text"
-    //       placeholder="Email or Phone"
-    //       id="username"
-    //       onChange={(e) =>
-    //         setLoginData((prev: any) => ({
-    //           ...prev,
-    //           username: e.target.value
-    //         }))
-    //       }
-    //     />
-
-    //     <label htmlFor="password">Password</label>
-    //     <input
-    //       type="password"
-    //       placeholder="Password"
-    //       id="password"
-    //       onChange={(e) =>
-    //         setLoginData((prev: any) => ({
-    //           ...prev,
-    //           password: e.target.value
-    //         }))
-    //       }
-    //     />
-
-    //     <button type="submit">Log In</button>
-    //     <div className="social">
-    //       <div className="go">
-    //         <i className="fab fa-google"></i> Google
-    //       </div>
-    //       <div className="fb">
-    //         <i className="fab fa-facebook"></i> Facebook
-    //       </div>
-    //     </div>
-    //   </form>
-    // </div>
-
     <div className="loginFormBg">
       <div id="stars"></div>
       <div id="stars2"></div>
       <div id="stars3"></div>
       <div className="loginForm">
         <div className="loginForm-header text-center">
-          {/* <img
-            data-tut="tour__logo"
-            src={require("../../Assets/images/vkpatel.png")}
-            alt="logo"
-            className="logo-img"
-          /> */}
           <i className="fa-solid fa-square-poll-vertical fa-3x"></i>
-  
         </div>
 
         <div className="loginForm-body">

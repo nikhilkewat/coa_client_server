@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/Login/AuthProvider";
 
 type AppHeaderProps = {
   toggleClick?: () => void;
@@ -7,8 +9,13 @@ type AppHeaderProps = {
 };
 const AppHeaderTop = (props: AppHeaderProps) => {
   const { toggleClick = () => {}, isToggled = false } = props;
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const {
+    user: { data },
+    signout
+  } = useAuth();
+  console.log(data);
   const onClickDropdownOpen = () => {
     setDropdownOpen(true);
   };
@@ -16,7 +23,15 @@ const AppHeaderTop = (props: AppHeaderProps) => {
   const handleSubmit = () => {
     setDropdownOpen(false);
   };
-  
+
+  const logout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    signout(() => {
+      navigate("/");
+    });
+  };
+
   return (
     <nav
       className={
@@ -32,7 +47,7 @@ const AppHeaderTop = (props: AppHeaderProps) => {
       </div>
       <form className="d-none d-sm-inline-block">
         <div className="row">
-          <div
+          {/* <div
             className="col-md-6 col-lg-6 col-sm-12 mb-2"
             style={{ paddingLeft: "30px" }}
           >
@@ -64,15 +79,20 @@ const AppHeaderTop = (props: AppHeaderProps) => {
                 </li>
               </ul>
             </div>
+          </div> */}
+          <div
+            className="col-md-6 col-lg-6 col-sm-12 mt-1"
+            style={{ paddingLeft: "30px" }}
+          >
+            <h5 style={{ color: "#fff" }}>{data.user.fullName}</h5>
           </div>
-        
-          <div className="col-md-3 col-lg-3 col-sm-12 mb-2">
+          {/* <div className="col-md-3 col-lg-3 col-sm-12 mb-2">
             <input
               className="form-control form-control-lite lg-8"
               type="text"
               placeholder="Search..."
             />
-          </div>
+          </div> */}
         </div>
       </form>
       <div className="navbar-collapse collapse">
@@ -110,6 +130,7 @@ const AppHeaderTop = (props: AppHeaderProps) => {
             <div
               className="dropdown-menu dropdown-menu-end"
               aria-labelledby="userDropdown"
+              style={{ right: "-12px", top: "40px" }}
             >
               <a className="dropdown-item" href="#">
                 <i className="align-middle me-1 fas fa-fw fa-user"></i> View
@@ -127,7 +148,7 @@ const AppHeaderTop = (props: AppHeaderProps) => {
                 <i className="align-middle me-1 fas fa-fw fa-cogs"></i> Settings
               </a>
               <div className="dropdown-divider"></div>
-              <a className="dropdown-item" href="#">
+              <a className="dropdown-item" href="#" onClick={() => logout()}>
                 <i className="align-middle me-1 fas fa-fw fa-arrow-alt-circle-right"></i>{" "}
                 Sign out
               </a>

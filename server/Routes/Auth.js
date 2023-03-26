@@ -4,7 +4,7 @@ const mysqlParams = require("mysql-named-params-escape");
 const queryEngine = require("../database/dbWrapper");
 const dbQueries = require("../queries/Auth");
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
+const keys = require("../config/dev");
 
 authRouter.post("/login", (req, res) => {
   let query = mysqlParams(dbQueries.login, {
@@ -15,12 +15,22 @@ authRouter.post("/login", (req, res) => {
     if (err) {
       res.status(500).send(err);
     } else {
-      const token = jwt.sign(rows[0], keys.Secret, {
-        expiresIn: "1h",
-      });
-      const updateRows = { ...rows[0], token: token };
+      
+      if (rows[0]) {
+      
+        const token = jwt.sign({ ...rows[0] }, keys.Secret, {
+          algorithm: "HS256",
+          expiresIn: "1d"
+        });
 
-      res.status(200).send({ rows: updateRows, fields });
+        const updateRows = { success: true,user: rows[0], token: token };
+        res.status(200).send(updateRows);
+      } else {
+        res.status(200).send({
+          success: false,
+          message: "Invalid Username or password."
+        });
+      }
     }
   });
 });
