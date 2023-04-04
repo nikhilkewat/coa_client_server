@@ -14,11 +14,18 @@ const insert_test_master_result = `INSERT INTO coaTestResult (coaTestMasterId, r
 
 const update_test_master_result = `UPDATE coaTestResult SET isActive=0,isDelete=1 WHERE coaTestMasterId=:coaTestMasterId;`;
 
+const get_test_by_products = `SELECT t.template,cm.testName,p.productName,cm.testName label,cm.id value,t.id templateId,cm.id testId,p.id productId  FROM templates t
+JOIN template_test_tran tt ON tt.templateId = t.Id
+JOIN coatestmaster cm ON cm.id = tt.testId
+JOIN products p ON p.id = cm.productId
+WHERE p.id =:productid`;
+
 module.exports = {
   get_testMaster_list,
   save_testMaster,
   update_testMaster,
   delete_testMaster,
   insert_test_master_result,
-  update_test_master_result
+  update_test_master_result,
+  get_test_by_products
 };
