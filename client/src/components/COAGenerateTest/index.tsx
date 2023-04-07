@@ -7,6 +7,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { useCOAReportHooks } from "./useCOAReportHooks";
 import { AgGridReact } from "../common/AgGridReact";
 import GridActions from "../common/GridActions";
+import { useNavigate } from "react-router-dom";
 
 const COAReportMaster = () => {
   const {
@@ -32,6 +33,7 @@ const COAReportMaster = () => {
     onRemoveTestData
   } = useCOAReportHooks();
 
+  const navigate = useNavigate();
   const [colDefs] = useState<ColDef[]>([
     { field: "testName", headerName: "Test" },
     { field: "productName", headerName: "Product" },
@@ -342,16 +344,13 @@ const COAReportMaster = () => {
                 <button
                   type="button"
                   className="btn btn-danger w-100 btn-sm"
-                  onClick={() => setFormData(intialValues)}
+                  onClick={() => navigate("/app/testlist")}
                 >
                   <i className="fa-solid fa-xmark"></i> {" Cancel"}
                 </button>
               </div>
             </div>
           </form>
-          <div className="ag-theme-balham agGrid-height-width mt-2">
-            <AgGridReact rowData={rowData} columnDefs={colDefs}></AgGridReact>
-          </div>
         </div>
       </div>
     </div>

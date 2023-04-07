@@ -71,7 +71,7 @@ const AppSideMenu = () => {
             <li className="sidebar-item active">
               <li className="sidebar-item">
                 <Link
-                  to="/app/inittest"
+                  to="/app/testlist"
                   className="text-decoration-none sidebar-link"
                   state={'START TEST'}
                 >

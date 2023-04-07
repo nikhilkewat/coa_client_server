@@ -12,7 +12,7 @@ import { get_product_list } from "../../redux/actions/products";
 import { useAppSelector } from "../../redux/store/hooks";
 import { SingleValue } from "react-select";
 import { ProductTypes } from "../Product/useProductHooks";
-import { saveCOATestGeneration } from "../../redux/actions/generateTest";
+import { getCOATestGeneration, saveCOATestGeneration } from "../../redux/actions/generateTest";
 
 export type COAReportResult = {
     id?: number;
@@ -106,8 +106,8 @@ export const useCOAReportHooks = () => {
         setFormTestData((prev) => ({ ...prev, ...option, selectedTest: option, testId: Number(option?.value) }));
     }
 
-    const getTestMasterList = () => dispatch(get_tests_by_product(formData.productId || 0, {
-        onSuccess: (res) => setRowData(res)
+    const getTestMasterList = () => dispatch(getCOATestGeneration({
+        onSuccess: (res) => {console.log(res);setRowData(res.data.rows);}
     }))
 
     const getProductList = () => dispatch(get_product_list())

@@ -50,13 +50,24 @@ coaGenerateReportRouter
     });
   })
   .get("/", (req, res) => {
-    const query = mysqlParams(test_master_queries.get_testMaster_list);
+    const query = `${mysqlParams(
+      coa_test_report_queries.get_coa_report_master
+    )}${coa_test_report_queries.get_coa_report_tran}`;
 
     queryEngine.query(query, (err, rows, fields) => {
       if (err) {
         res.status(500).send(err);
       } else {
-        res.status(200).send({ rows, fields });
+        const data = [];
+        rows[0].forEach((x) => {
+          const det = rows[1].filter((y) => y.coaReportMasterId === x.id) || [];
+          const d = {
+            ...x,
+            details: det
+          };
+          data.push(d);
+        });
+        res.status(200).send({ rows: data, fields });
       }
     });
   })
