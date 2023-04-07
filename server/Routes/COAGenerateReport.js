@@ -29,7 +29,7 @@ coaGenerateReportRouter
           //   coaReportMasterId,
           //   id: coaReportMasterId
           // });
-          req.body.results.split(",").forEach((x) => {
+          req.body.results.forEach((x) => {
             query += mysqlParams(coa_test_report_queries.save_coa_report_tran, {
               ...x,
               coaReportMasterId
