@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ColDef } from "ag-grid-community";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
@@ -6,6 +6,8 @@ import { confirmAlert } from "react-confirm-alert";
 import { useCOATemplateHooks } from "./useCOATemplateHooks";
 import { AgGridReact } from "../common/AgGridReact";
 import GridActions from "../common/GridActions";
+import { ProductTypes } from "../Product/useProductHooks";
+import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
 
 const COATemplates = () => {
   const {
@@ -63,6 +65,18 @@ const COATemplates = () => {
     });
   };
 
+  useEffect(()=>{
+    console.log(formData.id)
+    if(formData?.id!>0){
+    const tmptestMasterIds = formData?.testIds!.split(",").map((x:string)=>+x);
+        
+        const selectedTestMasters = test_master_list?.filter((x: ProductTypes) => tmptestMasterIds.includes(x?.id!)) || null;
+        console.log(selectedTestMasters)
+        const testMasterIds = selectedTestMasters?.map((x: TestMasterTypes) => x.id as number) || [];
+        setFormData((prev)=>({...prev,testMasterIds,selectedTestMasters}))
+
+    }
+  },[formData.id])
   return (
     <div className="container-fluid">
       <h1 className="header-title">{`COA Template Master`}</h1>

@@ -27,7 +27,7 @@ const COATestMaster = () => {
 
   const [colDefs] = useState<ColDef[]>([
     { field: "testName", headerName: "Test" },
-    { field: "productName", headerName: "Product" },
+    // { field: "productName", headerName: "Product" },
     { field: "testResultsGroupConcat", headerName: "Results" },
     {
       headerName: "Actions",
@@ -87,7 +87,7 @@ const COATestMaster = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              {/* <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <label className="form-label">Product</label>
 
                 <Controller
@@ -103,7 +103,7 @@ const COATestMaster = () => {
                     />
                   )}
                 />
-              </div>
+              </div> */}
               <div className="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <label className="form-label">Results</label>
                 <small

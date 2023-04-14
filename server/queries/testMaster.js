@@ -1,4 +1,4 @@
-const save_testMaster = `INSERT INTO coaTestMaster (testName, productId) VALUES(:testName, :productId);  `;
+const save_testMaster = `INSERT INTO coaTestMaster (testName) VALUES(:testName);  `;
 
 const update_testMaster = `UPDATE coaTestMaster SET testName=:testName, modifiedDateTime=NOW(),modifiedBy=1 WHERE id=:id`;
 

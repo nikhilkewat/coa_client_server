@@ -8,6 +8,8 @@ import { useCOAReportHooks } from "./useCOAReportHooks";
 import { AgGridReact } from "../common/AgGridReact";
 import GridActions from "../common/GridActions";
 import { useNavigate } from "react-router-dom";
+import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
+
 
 const COAReportMaster = () => {
   const {
@@ -30,7 +32,8 @@ const COAReportMaster = () => {
     formTestData,
     handleTranChange,
     onAddTestData,
-    onRemoveTestData
+    onRemoveTestData,
+    test_master_list, template_list, onTemplateChange, onTranResultChange
   } = useCOAReportHooks();
 
   const navigate = useNavigate();
@@ -67,7 +70,7 @@ const COAReportMaster = () => {
         },
         {
           label: "No",
-          onClick: () => {}
+          onClick: () => { }
         }
       ]
     });
@@ -80,7 +83,17 @@ const COAReportMaster = () => {
         <div className="card-body">
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="row g-2">
-              <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+              <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                <label className="form-label">Customer</label>
+                <input
+                  className={`form-control`}
+                  name={"customerName"}
+                  placeholder="Customer"
+                  onChange={handleChange}
+                  value={formData.customerName}
+                />
+              </div>
+              <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                 <label className="form-label">Product</label>
                 <Controller
                   name={"productId"}
@@ -130,7 +143,7 @@ const COAReportMaster = () => {
                 />
               </div>
 
-              <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+              <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                 <label className="form-label">Grade</label>
                 <input
                   {...register("grade")}
@@ -146,7 +159,7 @@ const COAReportMaster = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+              <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                 <label className="form-label">Batch</label>
                 <input
                   {...register("batchNo")}
@@ -162,7 +175,7 @@ const COAReportMaster = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+              <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                 <label className="form-label">AR No</label>
                 <input
                   {...register("arNo")}
@@ -178,13 +191,12 @@ const COAReportMaster = () => {
                   </div>
                 )}
               </div>
-              <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
+              <div className="col-md-1 col-lg-1 col-sm-12 col-xs-12">
                 <label className="form-label">Supply</label>
                 <input
                   {...register("supplyQty")}
-                  className={`form-control ${
-                    errors?.supplyQty ? `error` : ``
-                  } `}
+                  className={`form-control ${errors?.supplyQty ? `error` : ``
+                    } `}
                   name={"supplyQty"}
                   placeholder="Supply Qty."
                   onChange={handleChange}
@@ -206,7 +218,7 @@ const COAReportMaster = () => {
                   value={formData.pageNo}
                 />
               </div>
-              <div className="col-md-3 col-lg-3 col-sm-12">
+              <div className="col-md-2 col-lg-2 col-sm-12">
                 <label className="form-label">Mfg. Date</label>
 
                 <DatePicker
@@ -220,7 +232,7 @@ const COAReportMaster = () => {
                   className={`form-control ${errors?.mfgDate ? `error` : ``} `}
                 />
               </div>
-              <div className="col-md-3 col-lg-3 col-sm-12">
+              <div className="col-md-2 col-lg-2 col-sm-12">
                 <label className="form-label">Exp. Date</label>
 
                 <DatePicker
@@ -229,6 +241,7 @@ const COAReportMaster = () => {
                   onChange={(date: Date) =>
                     setFormData((prev) => ({ ...prev, expDate: date }))
                   }
+                  minDate={formData?.mfgDate as Date}
                   showYearDropdown
                   dateFormat={"dd/MM/yyyy"}
                   className={`form-control ${errors?.expDate ? `error` : ``} `}
@@ -240,6 +253,22 @@ const COAReportMaster = () => {
               <div className="card-body">
                 <div className="row g-2">
                   <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                    <label className="form-label">{`Template`}</label>
+                    <Controller
+                      name={"templateId"}
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          className="react-select"
+                          //value={formTestData?.selectedTest}
+                          options={template_list}
+                          onChange={onTemplateChange}
+                        />
+                      )}
+                    />
+                  </div>
+                  <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                     <label className="form-label">{`Test`}</label>
                     <Controller
                       name={"testId"}
@@ -249,42 +278,10 @@ const COAReportMaster = () => {
                           {...field}
                           className="react-select"
                           value={formTestData?.selectedTest}
-                          options={test_master_list_by_product}
+                          options={test_master_list.filter((x: TestMasterTypes) => !formData.results?.map(y => y.testName).includes(x.testName))}
                           onChange={onTestChange}
                         />
                       )}
-                    />
-                  </div>
-                  <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                    <label className="form-label">Grade</label>
-                    <input
-                      className={`form-control`}
-                      name={"grade"}
-                      placeholder="Grade"
-                      onChange={handleTranChange}
-                      value={formTestData?.grade}
-                    />
-                  </div>
-                  <div className="col-md-5 col-lg-5 col-sm-12 col-xs-12">
-                    <label className="form-label">Specification</label>
-                    <textarea
-                      rows={3}
-                      className={`form-control`}
-                      name={"specification"}
-                      placeholder="Specification"
-                      onChange={handleTranChange}
-                      value={formTestData?.specification}
-                    />
-                  </div>
-                  <div className="col-md-5 col-lg-5 col-sm-12 col-xs-12">
-                    <label className="form-label">Result</label>
-                    <textarea
-                      rows={3}
-                      className={`form-control`}
-                      name={"result"}
-                      placeholder="Result"
-                      onChange={handleTranChange}
-                      value={formTestData?.result}
                     />
                   </div>
                   <div className="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-xs-12 mt-auto">
@@ -310,23 +307,55 @@ const COAReportMaster = () => {
                         </tr>
                       </thead>
                       <tbody className="table-group-divider">
-                        {formData.results?.map((x) => (
-                          <tr key={x.id}>
-                            <td>{x.testName}</td>
-                            <td>{x.grade}</td>
-                            <td>{x.specification}</td>
-                            <td>{x.result}</td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-danger btn-sm"
-                                onClick={() => onRemoveTestData(Number(x.id))}
-                              >
-                                <i className="fas fa-minus"></i>
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
+                        {formData.results?.map((x) => {
+                          console.log(x, formData.results);
+                          return (
+
+                            <tr key={x.id}>
+                              <td>{x.testName}</td>
+                              <td><input
+                                className={`form-control`}
+                                name={"grade"}
+                                placeholder="Grade"
+                                onChange={(e) => handleTranChange(e, x)}
+                                value={x?.grade}
+                              /></td>
+                              <td><textarea
+                                rows={3}
+                                className={`form-control`}
+                                name={"specification"}
+                                placeholder="Specification"
+                                onChange={(e) => handleTranChange(e, x)}
+                                value={x?.specification}
+                              /></td>
+                              <td><Controller
+                                name={"result"}
+                                control={control}
+                                render={({ field }) => (
+                                  <Select
+                                    {...field}
+                                    className="react-select"
+                                    //value={formTestData?.selectedTest}
+                                    options={x.results?.map(x => ({
+                                      value: x,
+                                      label: x
+                                    }))}
+                                    onChange={option => onTranResultChange(option, x)}
+                                  />
+                                )}
+                              /></td>
+                              <td>
+                                <button
+                                  type="button"
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => onRemoveTestData(Number(x.id))}
+                                >
+                                  <i className="fas fa-minus"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          )
+                        })}
                       </tbody>
                     </table>
                   </div>

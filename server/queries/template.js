@@ -2,7 +2,7 @@ const save_template = `INSERT INTO templates (template) VALUES(:template);  `;
 
 const update_template = `UPDATE templates SET template=:template, modifiedDateTime=NOW(),modifiedBy=1 WHERE id=:id`;
 
-const get_template_list = `SELECT t.id, template, GROUP_CONCAT(tm.testName) applicableTests, GROUP_CONCAT(tt.testId) testIds
+const get_template_list = `SELECT t.id, template, GROUP_CONCAT(tm.testName) applicableTests, GROUP_CONCAT(tt.testId) testIds,t.id value, template label
 FROM templates t
 LEFT JOIN template_test_tran tt ON tt.templateId = t.id
 LEFT JOIN coatestmaster tm ON tm.id = tt.testId

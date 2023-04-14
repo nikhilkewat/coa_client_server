@@ -45,20 +45,22 @@ export const get_templates_list = (callback?: Callbacks) => async (dispatch: any
     await axios({
         method: "get",
         url: `${keys.ServicePath}/api/templates`,
-    }).then((res: AxiosResponse) => {
+    }).then(async (res: AxiosResponse) => {
+        console.log(res);
         const tempData = [...res.data.rows];
         const tData:any=[];
-        tempData.forEach(x => {
-            const t = {
-                ...x,
-                testMasterIds: x.testIds.split(",").map((x:string)=>+x)
-            }
-            tData.push(t);
-        })
-
-        //console.log(tData)
-        dispatch(_template_list(tData));
-        if (callback?.onSuccess) callback?.onSuccess(tData);
+        console.log(tempData);
+        // await tempData.map(x => {
+        //     const t = {
+        //         ...x,
+        //         testMasterIds: x.testIds.split(",").map((x:string)=>+x)
+        //     }
+        //     tData.push(t);
+        //     console.log(tData);
+        // })
+        // console.log(tData)
+        dispatch(_template_list(tempData));
+        if (callback?.onSuccess) callback?.onSuccess(tempData);
     }).catch((e) => {
         // toast.error(e.toString())
         if (callback?.onError) callback?.onError(e);

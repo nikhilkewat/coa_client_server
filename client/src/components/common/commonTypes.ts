@@ -12,8 +12,8 @@ export type Callbacks = {
 export type Actions = {
     type: string;
     payload: any;
-  };
-  
+};
+
 export type LogParams = {
     isActive?: number;
     isDelete?: number;

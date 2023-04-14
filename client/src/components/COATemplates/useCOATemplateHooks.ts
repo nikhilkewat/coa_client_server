@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { LogParams } from "../common/commonTypes";
+import { LogParams, SelectedOption } from "../common/commonTypes";
 import { templateValidationSchema } from "./templateValidationSchema";
 import { toast } from "react-toastify";
 import { get_testmaster_list } from "../../redux/actions/testmaster";
@@ -20,7 +20,8 @@ export type COATemplateTypes = {
     selectedTestMasters?: TestMasterTypes[] | null;
     applicableTests?: string;
     testMasterIds?: number[] | null;
-} & LogParams
+    testIds?: string;
+} & LogParams & SelectedOption;
 
 const intialValues: COATemplateTypes = {
     id: 0,
@@ -57,7 +58,7 @@ export const useCOATemplateHooks = () => {
     }
 
     const getTemplateList = () => dispatch(get_templates_list({
-        onSuccess: (res) => setRowData(res)
+        onSuccess: (res) => {console.log(res);setRowData(res)}
     }))
 
     const getTestMasterList = () => dispatch(get_testmaster_list());
@@ -72,7 +73,9 @@ export const useCOATemplateHooks = () => {
     }
 
     const onGridEdit = (data: any) => {
-        const selectedTestMasters = test_master_list?.filter((x: ProductTypes) => data.data.testMasterIds.includes(x.id)) || null;
+        const tmptestMasterIds = data.data.testIds.split(",").map((x:string)=>+x);
+        console.log(data,tmptestMasterIds,test_master_list);
+        const selectedTestMasters = test_master_list?.filter((x: ProductTypes) => tmptestMasterIds.includes(x.id)) || null;
         console.log(selectedTestMasters)
         const testMasterIds = selectedTestMasters?.map((x: TestMasterTypes) => x.id as number) || [];
         setFormData({ ...data.data, selectedTestMasters, testMasterIds });

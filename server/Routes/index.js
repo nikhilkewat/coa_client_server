@@ -3,6 +3,7 @@ const userRouter = require("./user");
 const productRouter = require("./products");
 const testRouter = require("./COATestMaster");
 const templateRouter = require("./COATemplates");
+//@ts-ignore
 const authRouter = require("./Auth");
 const coaGenerateReportRouter = require("./COAGenerateReport");
 

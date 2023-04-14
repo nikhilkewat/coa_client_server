@@ -11,6 +11,7 @@ const COAReportMasterList = () => {
 
   const [colDefs] = useState<ColDef[]>([
     { field: "TestDate", headerName: "Test Date",cellRenderer: 'agGroupCellRenderer'  },
+    { field: "customerName", headerName: "Customer" },
     { field: "productName", headerName: "Product" },
     { field: "grade", headerName: "Grade" },
     { field: "batchNo", headerName: "Batch No" },

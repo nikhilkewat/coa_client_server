@@ -21,7 +21,7 @@ export type TestMasterTypes = {
     productId?: number;
     productName?: string;
     selectedProduct?: SelectedOption | null
-} & LogParams
+} & LogParams & SelectedOption
 
 const intialValues: TestMasterTypes = {
     id: 0,
@@ -93,7 +93,7 @@ export const useTestMasterHooks = () => {
 
     useEffect(() => {
         getTestMasterList();
-        getProductList();
+        // getProductList();
     }, [])
 
     return {
