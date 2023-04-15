@@ -6,27 +6,50 @@ import { AgGridReact } from "../common/AgGridReact";
 import GridActions from "../common/GridActions";
 import { Link } from "react-router-dom";
 
+
 const COAReportMasterList = () => {
   const { rowData, onGridEdit, onGridDelete } = useCOAReportHooks();
 
   const [colDefs] = useState<ColDef[]>([
-    { field: "TestDate", headerName: "Test Date",cellRenderer: 'agGroupCellRenderer'  },
+    {
+      field: "TestDate",
+      headerName: "Test Date",
+      cellRenderer: "agGroupCellRenderer"
+    },
     { field: "customerName", headerName: "Customer" },
     { field: "productName", headerName: "Product" },
     { field: "grade", headerName: "Grade" },
     { field: "batchNo", headerName: "Batch No" },
     { field: "arNo", headerName: "AR No" },
     {
+      headerName: "",
+      width: 60,
+      pinned: "right",
+      filter: false,
+      cellRendererFramework: (val: any) => {
+        return (
+          <Link
+            className="btn btn-info btn-sm agGrid-button"
+            //target="_blank"
+            // rel="noopener noreferrer"
+            to="/app/printcoa"
+            state={{ data: val.data }}
+          >
+            <i className="fa-solid fa-print" />
+          </Link>
+        );
+      }
+    },
+    {
       headerName: "Actions",
       width: 100,
       pinned: "right",
-      cellRendererFramework: (val: any) => (
+      cellRendererFramework: (val: any) =>
         <GridActions
           data={val}
           onEditClick={onGridEdit}
           onDeleteClick={onDelete}
-        />
-      ),
+        />,
       field: "id",
       colId: "params"
     }
@@ -76,7 +99,7 @@ const COAReportMasterList = () => {
       <h1 className="header-title">
         {`Generate Test`}
         <Link to={"/app/inittest"} className="btn btn-light btn-sm">
-          <i className="fa-solid fa-user-plus"></i>
+          <i className="fa-solid fa-user-plus" />
           {" Generate New Test"}
         </Link>
       </h1>
@@ -88,7 +111,7 @@ const COAReportMasterList = () => {
               columnDefs={colDefs}
               masterDetail={true}
               detailCellRendererParams={detailCellRendererParams}
-            ></AgGridReact>
+            />
           </div>
         </div>
       </div>

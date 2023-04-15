@@ -2,7 +2,8 @@ const save_coa_report_master = `INSERT INTO coa_test_result_master (productId,gr
 
 const save_coa_report_tran = `INSERT INTO coa_test_result_tran (coaReportMasterId,testId,templateId,grade,result,specification) VALUES (:coaReportMasterId,:testId,:templateId,:grade,:result,:specification);`;
 
-const get_coa_report_master = `SELECT ctrm.id,ctrm.customerName, p.productCode, p.productName, ctrm.grade, ctrm.batchNo, ctrm.arNo,ctrm.supplyQty,ctrm.pageNo,ctrm.mfgDate,ctrm.expDate,DATE_FORMAT(ctrm.createDateTime,"%d-%m-%Y") TestDate FROM coa_test_result_master ctrm 
+const get_coa_report_master = `SELECT ctrm.id,ctrm.customerName, p.productCode, p.productName, ctrm.grade, ctrm.batchNo, ctrm.arNo,ctrm.supplyQty,ctrm.pageNo,ctrm.mfgDate,ctrm.expDate,DATE_FORMAT(ctrm.createDateTime,"%d-%m-%Y") TestDate,p.casNo, p.molecularWeight,p.molecularFormula
+FROM coa_test_result_master ctrm 
 JOIN products p ON p.id = ctrm.productId
 WHERE ctrm.isActive=1 AND ctrm.isDelete=0;`;
 

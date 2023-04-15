@@ -16,6 +16,7 @@ import { getCOATestGeneration, saveCOATestGeneration } from "../../redux/actions
 import { get_templates_list } from "../../redux/actions/templates";
 import { COATemplateTypes } from "../COATemplates/useCOATemplateHooks";
 import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
+import { useNavigate } from "react-router-dom";
 
 export type COAReportResult = {
     id?: number;
@@ -77,6 +78,7 @@ const intialTranValues: COAReportResult = {
 }
 
 export const useCOAReportHooks = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch<any>();
     const { product_list, test_master_list_by_product, template_list, test_master_list } = useAppSelector(obj => obj);
     const [formData, setFormData] = useState<COAReportMaster>(intialValues);
@@ -162,7 +164,7 @@ export const useCOAReportHooks = () => {
     useEffect(() => {
         if (formData?.results?.length! <= 0) {
             setTransactionError(true)
-        }else{
+        } else {
             setTransactionError(false);
         }
     }, [formData.results])
@@ -197,7 +199,7 @@ export const useCOAReportHooks = () => {
         }
         const frmData: COAReportMaster = { ...formData, mfgDate: format(formData.mfgDate as Date, "yyyy-MM-dd"), expDate: format(formData.expDate as Date, "yyyy-MM-dd") }
         dispatch(saveCOATestGeneration(frmData, {
-            onSuccess: () => { getTestMasterList(); setFormData(intialValues); }
+            onSuccess: () => { getTestMasterList(); setFormData(intialValues); reset(intialValues); navigate("/app/testlist"); }
         }))
     }
 
