@@ -66,7 +66,7 @@ export const useTestMasterHooks = () => {
     const onSubmit = () => {
         console.log(formData);
         dispatch(saveTestMaster(formData, {
-            onSuccess: () => { getTestMasterList(); setFormData(intialValues); }
+            onSuccess: () => { getTestMasterList(); setFormData(intialValues); reset(intialValues); }
         }))
     }
 

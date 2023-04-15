@@ -68,7 +68,7 @@ export const useCOATemplateHooks = () => {
         console.log(formData);
         const { selectedTestMasters, ...others } = formData;
         dispatch(saveTemplateMaster(others, {
-            onSuccess: () => { getTemplateList(); setFormData(intialValues); }
+            onSuccess: () => { getTemplateList(); setFormData(intialValues); reset(intialValues); }
         }))
     }
 
@@ -100,6 +100,6 @@ export const useCOATemplateHooks = () => {
     }, [])
 
     return {
-        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, test_master_list, onTestMasterChange
+        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, test_master_list, onTestMasterChange,reset
     }
 }

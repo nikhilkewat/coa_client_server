@@ -33,6 +33,7 @@ const COAReportMaster = () => {
     handleTranChange,
     onAddTestData,
     onRemoveTestData,
+    transactionError,
     test_master_list, template_list, onTemplateChange, onTranResultChange
   } = useCOAReportHooks();
 
@@ -86,16 +87,23 @@ const COAReportMaster = () => {
               <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                 <label className="form-label">Customer</label>
                 <input
-                  className={`form-control`}
+                  {...register("customerName")}
+                  className={`form-control ${errors?.customerName ? `error` : ``}`}
                   name={"customerName"}
                   placeholder="Customer"
                   onChange={handleChange}
                   value={formData.customerName}
                 />
+                {errors?.customerName && (
+                  <div className="invalid-feedback">
+                    {errors?.customerName?.message as string}
+                  </div>
+                )}
               </div>
               <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                 <label className="form-label">Product</label>
                 <Controller
+                  {...register("productId")}
                   name={"productId"}
                   control={control}
                   render={({ field }) => (
@@ -108,6 +116,10 @@ const COAReportMaster = () => {
                     />
                   )}
                 />
+                {errors?.productId && (
+                  <div className="invalid-feedback">
+                    {errors?.productId?.message as string}
+                  </div>)}
               </div>
               <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                 <label className="form-label">CAS No.</label>
@@ -251,6 +263,11 @@ const COAReportMaster = () => {
 
             <div className="card mt-2">
               <div className="card-body">
+                {transactionError && (
+                  <div className="alert alert-warning">
+                    {"Atleast one test is required"}
+                    </div>
+                )}
                 <div className="row g-2">
                   <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                     <label className="form-label">{`Template`}</label>

@@ -24,7 +24,7 @@ const COATemplates = () => {
     onGridDelete,
     control,
     test_master_list,
-    onTestMasterChange
+    onTestMasterChange,reset
   } = useCOATemplateHooks();
 
   const [colDefs] = useState<ColDef[]>([
@@ -96,7 +96,7 @@ const COATemplates = () => {
                 />
                 {errors?.template && (
                   <div className="invalid-feedback">
-                    {!!errors?.template?.message}
+                    {errors?.template?.message as string}
                   </div>
                 )}
               </div>
@@ -129,7 +129,7 @@ const COATemplates = () => {
                 <button
                   type="button"
                   className="btn btn-danger w-100 btn-sm"
-                  onClick={() => setFormData(intialValues)}
+                  onClick={() => {setFormData(intialValues);reset(intialValues)}}
                 >
                   <i className="fa-solid fa-xmark"></i> {" Cancel"}
                 </button>

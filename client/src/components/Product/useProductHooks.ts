@@ -53,7 +53,7 @@ export const useProductHooks = () => {
 
     const onSubmit = () => {
         dispatch(saveProduct(formData, {
-            onSuccess: () => { getProductList(); setFormData(intialValues); }
+            onSuccess: () => { getProductList(); setFormData(intialValues); reset(intialValues); }
         }))
     }
 

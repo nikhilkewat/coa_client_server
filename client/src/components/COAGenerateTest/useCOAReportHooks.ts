@@ -51,7 +51,7 @@ export type COAReportMaster = {
 const intialValues: COAReportMaster = {
     id: 0,
     productId: 0,
-    customerName:'',
+    customerName: '',
     grade: '',
     batchNo: '',
     arNo: '',
@@ -80,13 +80,14 @@ export const useCOAReportHooks = () => {
     const dispatch = useDispatch<any>();
     const { product_list, test_master_list_by_product, template_list, test_master_list } = useAppSelector(obj => obj);
     const [formData, setFormData] = useState<COAReportMaster>(intialValues);
+    const [transactionError, setTransactionError] = useState<boolean>(false);
     const [formTestData, setFormTestData] = useState<COAReportResult>(intialTranValues);
     const [rowData, setRowData] = useState<COAReportMaster[]>([]);
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset, control
+        reset, control, setValue
     } = useForm({
         mode: "all",
         reValidateMode: "onChange",
@@ -119,6 +120,7 @@ export const useCOAReportHooks = () => {
         const opt = option as ProductTypes;
         const { value, label, ...others } = opt
         setFormData((prev) => ({ ...prev, selectedProduct: { ...opt, other: others as ProductTypes }, productId: Number(opt.value) }));
+        setValue("productId", opt.value)
     }
 
     const onTestChange = (option: SingleValue<SelectedOption>) => {
@@ -157,6 +159,14 @@ export const useCOAReportHooks = () => {
         //setFormTestData((prev) => ({ ...prev, ...option, selectedTest: option, testId: Number(option?.value) }));
     }
 
+    useEffect(() => {
+        if (formData?.results?.length! <= 0) {
+            setTransactionError(true)
+        }else{
+            setTransactionError(false);
+        }
+    }, [formData.results])
+
     const getTestMasterList = () => dispatch(getCOATestGeneration({
         onSuccess: (res) => { console.log(res); setRowData(res.data.rows); }
     }))
@@ -180,7 +190,11 @@ export const useCOAReportHooks = () => {
         setFormTestData(intialTranValues);
     }
     const onSubmit = () => {
-        console.log(formData);
+
+        if (formData?.results?.length! <= 0) {
+            setTransactionError(true)
+            return;
+        }
         const frmData: COAReportMaster = { ...formData, mfgDate: format(formData.mfgDate as Date, "yyyy-MM-dd"), expDate: format(formData.expDate as Date, "yyyy-MM-dd") }
         dispatch(saveCOATestGeneration(frmData, {
             onSuccess: () => { getTestMasterList(); setFormData(intialValues); }
@@ -221,6 +235,6 @@ export const useCOAReportHooks = () => {
     // }, [formData.productId])
 
     return {
-        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, product_list, onProductChange, test_master_list_by_product, formTestData, onTestChange, handleTranChange, onAddTestData, onRemoveTestData, template_list, test_master_list, onTemplateChange, onTranResultChange
+        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, product_list, onProductChange, test_master_list_by_product, formTestData, onTestChange, handleTranChange, onAddTestData, onRemoveTestData, template_list, test_master_list, onTemplateChange, onTranResultChange, transactionError
     }
 }

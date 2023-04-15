@@ -82,7 +82,7 @@ const ProductMaster = () => {
                 />
                 {errors?.productCode && (
                   <div className="invalid-feedback">
-                    {!!errors?.productCode?.message}
+                    {errors?.productCode?.message as string}
                   </div>
                 )}
               </div>
@@ -100,7 +100,7 @@ const ProductMaster = () => {
                 />
                 {errors?.productName && (
                   <div className="invalid-feedback">
-                    {!!errors?.productName?.message}
+                    {errors?.productName?.message as string}
                   </div>
                 )}
               </div>

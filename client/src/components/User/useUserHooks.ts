@@ -53,7 +53,7 @@ export const useUserHooks = () => {
 
     const onSubmit = () => {
         dispatch(save(formData, {
-            onSuccess: () => { getUserList(); setFormData(intialValues); }
+            onSuccess: () => { getUserList(); setFormData(intialValues); reset(intialValues); }
         }))
     }
 

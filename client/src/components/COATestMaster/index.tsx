@@ -83,7 +83,7 @@ const COATestMaster = () => {
                 />
                 {errors?.testName && (
                   <div className="invalid-feedback">
-                    {!!errors?.testName?.message}
+                    {errors?.testName?.message as string}
                   </div>
                 )}
               </div>
@@ -118,6 +118,11 @@ const COATestMaster = () => {
                   onChange={handleChange}
                   value={formData.testResultsGroupConcat}
                 />
+                  {/* {errors?.testResultsGroupConcat && (
+                  <div className="invalid-feedback">
+                    {errors?.testResultsGroupConcat?.message as string}
+                  </div>
+                )} */}
               </div>
             </div>
             <div className="row g-2 mt-2">

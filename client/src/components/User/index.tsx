@@ -70,7 +70,7 @@ const UserMaster = () => {
                 <input
                   {...register("fullName")}
                   className={`form-control ${
-                    errors?.ledgeraccountgroupname ? `error` : ``
+                    errors?.fullName ? `error` : ``
                   } `}
                   name={"fullName"}
                   placeholder="Name"
@@ -79,7 +79,7 @@ const UserMaster = () => {
                 />
                 {errors?.fullName && (
                   <div className="invalid-feedback">
-                    {!!errors?.fullName?.message}
+                    {errors?.fullName?.message as string}
                   </div>
                 )}
               </div>
@@ -88,7 +88,7 @@ const UserMaster = () => {
                 <input
                   {...register("userName")}
                   className={`form-control ${
-                    errors?.ledgeraccountgroupname ? `error` : ``
+                    errors?.userName ? `error` : ``
                   } `}
                   name={"userName"}
                   placeholder="User Name"
@@ -97,7 +97,7 @@ const UserMaster = () => {
                 />
                 {errors?.userName && (
                   <div className="invalid-feedback">
-                    {!!errors?.userName?.message}
+                    {errors?.userName?.message as string}
                   </div>
                 )}
               </div>
@@ -106,7 +106,7 @@ const UserMaster = () => {
                 <input
                   {...register("password")}
                   className={`form-control ${
-                    errors?.ledgeraccountgroupname ? `error` : ``
+                    errors?.password ? `error` : ``
                   } `}
                   name={"password"}
                   placeholder="Password"
@@ -115,7 +115,7 @@ const UserMaster = () => {
                 />
                 {errors?.password && (
                   <div className="invalid-feedback">
-                    {!!errors?.password?.message}
+                    {errors?.password?.message as string}
                   </div>
                 )}
               </div>
