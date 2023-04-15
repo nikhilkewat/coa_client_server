@@ -162,13 +162,13 @@ const Print = () => {
                       {"Signature"}
                     </th>
                     <td>
-                      {``}
+                      {data.preparedBy||``}
                     </td>
                     <td>
-                      {``}
+                      {data.approvedBy||``}
                     </td>
                     <td>
-                      {``}
+                      {data.reviewedBy||``}
                     </td>
                   </tr>
                   <tr>

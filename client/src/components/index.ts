@@ -6,6 +6,7 @@ import COATestMaster from "./COATestMaster"
 import COATemplate from "./COATemplates"
 import COAReportMaster from "./COAGenerateTest";
 import PrintCOA from "./COAGenerateTest/Print";
+import Customer from "./Customer";
 export {
   login,
   RoutePages,
@@ -14,5 +15,6 @@ export {
   COATemplate,
   COAReportMaster,
   UserMaster,
-  PrintCOA
+  PrintCOA,
+  Customer
 };

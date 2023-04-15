@@ -20,7 +20,7 @@ coaGenerateReportRouter
       if (err) {
         res.status(500).send(err);
       } else {
-        console.log(rows.insertId);
+
         if (rows) {
           query = "";
           const coaReportMasterId =

@@ -20,7 +20,7 @@ templateRouter
       if (err) {
         res.status(500).send(err);
       } else {
-        console.log(rows.insertId);
+
         if (rows) {
           query = "";
           const templateId = req.body.id > 0 ? req.body.id : rows.insertId;

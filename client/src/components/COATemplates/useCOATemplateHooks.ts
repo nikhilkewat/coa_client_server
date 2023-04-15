@@ -58,14 +58,13 @@ export const useCOATemplateHooks = () => {
     }
 
     const getTemplateList = () => dispatch(get_templates_list({
-        onSuccess: (res) => {console.log(res);setRowData(res)}
+        onSuccess: (res) => {setRowData(res)}
     }))
 
     const getTestMasterList = () => dispatch(get_testmaster_list());
 
 
     const onSubmit = () => {
-        console.log(formData);
         const { selectedTestMasters, ...others } = formData;
         dispatch(saveTemplateMaster(others, {
             onSuccess: () => { getTemplateList(); setFormData(intialValues); reset(intialValues); }
@@ -74,9 +73,7 @@ export const useCOATemplateHooks = () => {
 
     const onGridEdit = (data: any) => {
         const tmptestMasterIds = data.data.testIds.split(",").map((x:string)=>+x);
-        console.log(data,tmptestMasterIds,test_master_list);
         const selectedTestMasters = test_master_list?.filter((x: ProductTypes) => tmptestMasterIds.includes(x.id)) || null;
-        console.log(selectedTestMasters)
         const testMasterIds = selectedTestMasters?.map((x: TestMasterTypes) => x.id as number) || [];
         setFormData({ ...data.data, selectedTestMasters, testMasterIds });
         reset({ ...data.data, selectedTestMasters, testMasterIds });

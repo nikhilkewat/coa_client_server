@@ -3,7 +3,6 @@ import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { fakeAuthProvider } from "../../auth";
 import { login } from "../../redux/actions/auth";
 import { useLocalStorage } from "./useLocalStorage";
 
@@ -59,8 +58,6 @@ export const AuthProvider = ({ children, userData }: any) => {
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {
   let auth = useAuth();
   let location = useLocation();
-
-  console.log("Require Auth", auth);
   if (!auth.user) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them

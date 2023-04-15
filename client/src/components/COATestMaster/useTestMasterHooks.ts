@@ -7,7 +7,6 @@ import { LogParams, SelectedOption } from "../common/commonTypes";
 import { userValidationSchema } from "./testMasterValidationSchema";
 import { toast } from "react-toastify";
 import { saveTestMaster, get_testmaster_list, deleteTestMaster } from "../../redux/actions/testmaster";
-import { get_product_list } from "../../redux/actions/products";
 import { useAppSelector } from "../../redux/store/hooks";
 import { SingleValue } from "react-select";
 import { ProductTypes } from "../Product/useProductHooks";
@@ -61,17 +60,13 @@ export const useTestMasterHooks = () => {
         onSuccess: (res) => setRowData(res)
     }))
 
-    const getProductList = () => dispatch(get_product_list())
-
     const onSubmit = () => {
-        console.log(formData);
         dispatch(saveTestMaster(formData, {
             onSuccess: () => { getTestMasterList(); setFormData(intialValues); reset(intialValues); }
         }))
     }
 
     const onGridEdit = (data: any) => {
-        console.log(product_list)
         const selectedProduct = product_list?.find((x: ProductTypes) => x.id === data.data.productId) || null;
         setFormData({ ...data.data, selectedProduct });
         reset({ ...data.data, selectedProduct });

@@ -1,32 +1,27 @@
-import { useState } from "react";
-import { ColDef } from "ag-grid-community";
 import { Controller } from "react-hook-form";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
-import { confirmAlert } from "react-confirm-alert";
+
 import { useCOAReportHooks } from "./useCOAReportHooks";
-import { AgGridReact } from "../common/AgGridReact";
-import GridActions from "../common/GridActions";
+
 import { useNavigate } from "react-router-dom";
 import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
-
 
 const COAReportMaster = () => {
   const {
     formData,
     setFormData,
     handleChange,
-    intialValues,
+
     onSubmit,
-    rowData,
-    onGridEdit,
+
     register,
     handleSubmit,
     errors,
-    onGridDelete,
+
     control,
     product_list,
-    test_master_list_by_product,
+
     onTestChange,
     onProductChange,
     formTestData,
@@ -34,48 +29,17 @@ const COAReportMaster = () => {
     onAddTestData,
     onRemoveTestData,
     transactionError,
-    test_master_list, template_list, onTemplateChange, onTranResultChange
+    customer_list,
+    test_master_list,
+    template_list,
+    onTemplateChange,
+    onTranResultChange,
+    onCustomerChange,
+    user_list,
+    onUserChanged
   } = useCOAReportHooks();
 
   const navigate = useNavigate();
-  const [colDefs] = useState<ColDef[]>([
-    { field: "testName", headerName: "Test" },
-    { field: "productName", headerName: "Product" },
-    { field: "testResultsGroupConcat", headerName: "Results" },
-    {
-      headerName: "Actions",
-      width: 100,
-      pinned: "right",
-      cellRendererFramework: (val: any) => (
-        <GridActions
-          data={val}
-          onEditClick={onGridEdit}
-          onDeleteClick={onDelete}
-        />
-      ),
-      field: "id",
-      colId: "params"
-    }
-  ]);
-
-  const onDelete = (data: any) => {
-    confirmAlert({
-      title: "Delete Confirmation",
-      message: "Are you sure to do this?",
-      buttons: [
-        {
-          label: "Yes",
-          onClick: () => {
-            onGridDelete(data);
-          }
-        },
-        {
-          label: "No",
-          onClick: () => { }
-        }
-      ]
-    });
-  };
 
   return (
     <div className="container-fluid">
@@ -86,17 +50,23 @@ const COAReportMaster = () => {
             <div className="row g-2">
               <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
                 <label className="form-label">Customer</label>
-                <input
-                  {...register("customerName")}
-                  className={`form-control ${errors?.customerName ? `error` : ``}`}
-                  name={"customerName"}
-                  placeholder="Customer"
-                  onChange={handleChange}
-                  value={formData.customerName}
+                <Controller
+                  {...register("customerId")}
+                  name={"customerId"}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      {...field}
+                      className="react-select"
+                      value={formData.selectedCustomer}
+                      options={customer_list}
+                      onChange={onCustomerChange}
+                    />
+                  )}
                 />
-                {errors?.customerName && (
+                {errors?.customerId && (
                   <div className="invalid-feedback">
-                    {errors?.customerName?.message as string}
+                    {errors?.customerId?.message as string}
                   </div>
                 )}
               </div>
@@ -119,7 +89,8 @@ const COAReportMaster = () => {
                 {errors?.productId && (
                   <div className="invalid-feedback">
                     {errors?.productId?.message as string}
-                  </div>)}
+                  </div>
+                )}
               </div>
               <div className="col-md-2 col-lg-2 col-sm-12 col-xs-12">
                 <label className="form-label">CAS No.</label>
@@ -207,8 +178,9 @@ const COAReportMaster = () => {
                 <label className="form-label">Supply</label>
                 <input
                   {...register("supplyQty")}
-                  className={`form-control ${errors?.supplyQty ? `error` : ``
-                    } `}
+                  className={`form-control ${
+                    errors?.supplyQty ? `error` : ``
+                  } `}
                   name={"supplyQty"}
                   placeholder="Supply Qty."
                   onChange={handleChange}
@@ -266,7 +238,7 @@ const COAReportMaster = () => {
                 {transactionError && (
                   <div className="alert alert-warning">
                     {"Atleast one test is required"}
-                    </div>
+                  </div>
                 )}
                 <div className="row g-2">
                   <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
@@ -295,7 +267,12 @@ const COAReportMaster = () => {
                           {...field}
                           className="react-select"
                           value={formTestData?.selectedTest}
-                          options={test_master_list.filter((x: TestMasterTypes) => !formData.results?.map(y => y.testName).includes(x.testName))}
+                          options={test_master_list.filter(
+                            (x: TestMasterTypes) =>
+                              !formData.results
+                                ?.map((y) => y.testName)
+                                .includes(x.testName)
+                          )}
                           onChange={onTestChange}
                         />
                       )}
@@ -325,42 +302,48 @@ const COAReportMaster = () => {
                       </thead>
                       <tbody className="table-group-divider">
                         {formData.results?.map((x) => {
-                          console.log(x, formData.results);
                           return (
-
                             <tr key={x.id}>
                               <td>{x.testName}</td>
-                              <td><input
-                                className={`form-control`}
-                                name={"grade"}
-                                placeholder="Grade"
-                                onChange={(e) => handleTranChange(e, x)}
-                                value={x?.grade}
-                              /></td>
-                              <td><textarea
-                                rows={3}
-                                className={`form-control`}
-                                name={"specification"}
-                                placeholder="Specification"
-                                onChange={(e) => handleTranChange(e, x)}
-                                value={x?.specification}
-                              /></td>
-                              <td><Controller
-                                name={"result"}
-                                control={control}
-                                render={({ field }) => (
-                                  <Select
-                                    {...field}
-                                    className="react-select"
-                                    //value={formTestData?.selectedTest}
-                                    options={x.results?.map(x => ({
-                                      value: x,
-                                      label: x
-                                    }))}
-                                    onChange={option => onTranResultChange(option, x)}
-                                  />
-                                )}
-                              /></td>
+                              <td>
+                                <input
+                                  className={`form-control`}
+                                  name={"grade"}
+                                  placeholder="Grade"
+                                  onChange={(e) => handleTranChange(e, x)}
+                                  value={x?.grade}
+                                />
+                              </td>
+                              <td>
+                                <textarea
+                                  rows={3}
+                                  className={`form-control`}
+                                  name={"specification"}
+                                  placeholder="Specification"
+                                  onChange={(e) => handleTranChange(e, x)}
+                                  value={x?.specification}
+                                />
+                              </td>
+                              <td>
+                                <Controller
+                                  name={"result"}
+                                  control={control}
+                                  render={({ field }) => (
+                                    <Select
+                                      {...field}
+                                      className="react-select"
+                                      //value={formTestData?.selectedTest}
+                                      options={x.results?.map((x) => ({
+                                        value: x,
+                                        label: x
+                                      }))}
+                                      onChange={(option) =>
+                                        onTranResultChange(option, x)
+                                      }
+                                    />
+                                  )}
+                                />
+                              </td>
                               <td>
                                 <button
                                   type="button"
@@ -371,10 +354,70 @@ const COAReportMaster = () => {
                                 </button>
                               </td>
                             </tr>
-                          )
+                          );
                         })}
                       </tbody>
                     </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="card mt-2">
+              <div className="card-body">
+                <div className="row g-2">
+                  <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                    <label className="form-label">Prepared By</label>
+                    <Controller
+                      name={"preparedBy"}
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          className="react-select"
+                          value={formData.selectedPreparedBy}
+                          options={user_list}
+                          onChange={(option) =>
+                            onUserChanged(option, "prepared")
+                          }
+                        />
+                      )}
+                    />
+                  </div>
+                  <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                    <label className="form-label">Approved By</label>
+                    <Controller
+                      name={"approvedBy"}
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          className="react-select"
+                          value={formData.selectedApprovedBy}
+                          options={user_list}
+                          onChange={(option) =>
+                            onUserChanged(option, "approved")
+                          }
+                        />
+                      )}
+                    />
+                  </div>
+                  <div className="col-md-3 col-lg-3 col-sm-12 col-xs-12">
+                    <label className="form-label">Reviewed By</label>
+                    <Controller
+                      name={"reviewedBy"}
+                      control={control}
+                      render={({ field }) => (
+                        <Select
+                          {...field}
+                          className="react-select"
+                          value={formData.selectedReviewedBy}
+                          options={user_list}
+                          onChange={(option) =>
+                            onUserChanged(option, "reviewed")
+                          }
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>

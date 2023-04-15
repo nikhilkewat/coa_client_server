@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { LogParams, SelectedOption } from "../common/commonTypes";
 import { reportValidationSchema } from "./reportValidationSchema";
 import { toast } from "react-toastify";
-import { saveTestMaster, get_testmaster_list, deleteTestMaster, get_tests_by_product } from "../../redux/actions/testmaster";
+import {  get_testmaster_list, deleteTestMaster } from "../../redux/actions/testmaster";
 import { get_product_list } from "../../redux/actions/products";
 import { useAppSelector } from "../../redux/store/hooks";
 import { SingleValue } from "react-select";
@@ -17,6 +17,10 @@ import { get_templates_list } from "../../redux/actions/templates";
 import { COATemplateTypes } from "../COATemplates/useCOATemplateHooks";
 import { TestMasterTypes } from "../COATestMaster/useTestMasterHooks";
 import { useNavigate } from "react-router-dom";
+import { get_customer_list } from "../../redux/actions/customer";
+import { CustomerTypes } from "../Customer/useCustomerHooks";
+import { get_user_list } from "../../redux/actions/user";
+import { UserTypes } from "../../types";
 
 export type COAReportResult = {
     id?: number;
@@ -37,7 +41,8 @@ export type COAReportResult = {
 export type COAReportMaster = {
     id?: number;
     productId: number;
-    customerName: string;
+    customerId: number;
+    customerName?: string;
     grade: string;
     batchNo?: string;
     arNo?: string;
@@ -46,12 +51,20 @@ export type COAReportMaster = {
     supplyQty?: number;
     pageNo?: number;
     selectedProduct?: SelectedOption | null;
+    selectedCustomer?: SelectedOption | null;
+    preparedBy?: number;
+    approvedBy?: number;
+    reviewedBy?: number;
+    selectedPreparedBy?: SelectedOption | null;
+    selectedApprovedBy?: SelectedOption | null;
+    selectedReviewedBy?: SelectedOption | null;
     results?: COAReportResult[] | null;
 } & LogParams
 
 const intialValues: COAReportMaster = {
     id: 0,
     productId: 0,
+    customerId: 0,
     customerName: '',
     grade: '',
     batchNo: '',
@@ -60,6 +73,9 @@ const intialValues: COAReportMaster = {
     expDate: '',
     supplyQty: 1,
     pageNo: 1,
+    approvedBy:0,
+    preparedBy:0,
+    reviewedBy:0,
     results: []
 }
 
@@ -80,7 +96,7 @@ const intialTranValues: COAReportResult = {
 export const useCOAReportHooks = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch<any>();
-    const { product_list, test_master_list_by_product, template_list, test_master_list } = useAppSelector(obj => obj);
+    const { product_list, test_master_list_by_product, template_list, test_master_list, customer_list, user_list } = useAppSelector(obj => obj);
     const [formData, setFormData] = useState<COAReportMaster>(intialValues);
     const [transactionError, setTransactionError] = useState<boolean>(false);
     const [formTestData, setFormTestData] = useState<COAReportResult>(intialTranValues);
@@ -113,8 +129,6 @@ export const useCOAReportHooks = () => {
         //@ts-ignore
         d[name] = e.target.value;
 
-        console.log(ch)
-
         setFormData((prev) => ({ ...prev, results: ch }));
     }
 
@@ -125,8 +139,15 @@ export const useCOAReportHooks = () => {
         setValue("productId", opt.value)
     }
 
+    const onCustomerChange = (option: SingleValue<SelectedOption>) => {
+        const opt = option as CustomerTypes;
+        const { value, label, ...others } = opt
+        setFormData((prev) => ({ ...prev, selectedCustomer: { ...opt, other: others as CustomerTypes }, customerName: label, customerId: Number(opt.value) }));
+        setValue("customerId", opt.value)
+    }
+
     const onTestChange = (option: SingleValue<SelectedOption>) => {
-        console.log(option);
+
         const { label, value, ...other } = option as TestMasterTypes;
         const tresults = other.testResultsGroupConcat.split(",");
         setFormTestData((prev) => ({ ...prev, ...option, selectedTest: { label, value, other }, testId: Number(option?.value), results: tresults }));
@@ -137,7 +158,6 @@ export const useCOAReportHooks = () => {
     const onTemplateChange = (option: SingleValue<SelectedOption>) => {
 
         const { label, value, ...others } = option as COATemplateTypes;
-        console.log(option, label, value, others);
         const testIds = others.testIds?.split(",").map(x => +x);
         const tests = test_master_list.filter((x: TestMasterTypes) => testIds?.includes(x?.id!));
         const t: COAReportResult[] = [];
@@ -155,8 +175,6 @@ export const useCOAReportHooks = () => {
             }
             t.push(res);
         })
-
-        console.log(t);
         setFormData((prev) => ({ ...prev, results: t }));
         //setFormTestData((prev) => ({ ...prev, ...option, selectedTest: option, testId: Number(option?.value) }));
     }
@@ -170,21 +188,27 @@ export const useCOAReportHooks = () => {
     }, [formData.results])
 
     const getTestMasterList = () => dispatch(getCOATestGeneration({
-        onSuccess: (res) => { console.log(res); setRowData(res.data.rows); }
+        onSuccess: (res) => { setRowData(res.data.rows); }
     }))
 
     const getTestMasters = () => dispatch(get_testmaster_list())
 
     const getProductList = () => dispatch(get_product_list())
 
+    const getCustomerList = () => dispatch(get_customer_list())
+
+    const getUserList = () => dispatch(get_user_list())
+
     const onAddTestData = () => {
 
+        if (formTestData?.testId! <= 0) {
+            return;
+        }
         const t: COAReportResult[] = [...formData.results!, { ...formTestData, id: Math.random(), results: formTestData.selectedTest?.other.testResultsGroupConcat.split(",") }];
 
-
-        console.log(t);
         setFormData((prev) => ({ ...prev, results: t }));
         setFormTestData(intialTranValues);
+        //reset(intialTranValues);
     }
     const onRemoveTestData = (id: number) => {
         const t = formData.results?.filter(x => x.id !== id);
@@ -192,7 +216,6 @@ export const useCOAReportHooks = () => {
         setFormTestData(intialTranValues);
     }
     const onSubmit = () => {
-
         if (formData?.results?.length! <= 0) {
             setTransactionError(true)
             return;
@@ -224,11 +247,24 @@ export const useCOAReportHooks = () => {
 
     const getTemplateList = () => dispatch(get_templates_list())
 
+    const onUserChanged = (option: SingleValue<SelectedOption>, type: string) => {
+        const opt = option as UserTypes;
+        const { value, label, ...others } = opt
+        if (type === "prepared")
+            setFormData((prev) => ({ ...prev, selectedPreparedBy: { ...opt, other: others as UserTypes }, preparedBy: Number(opt.value) }));
+        else if (type === "approved")
+            setFormData((prev) => ({ ...prev, selectedApprovedBy: { ...opt, other: others as UserTypes }, approvedBy: Number(opt.value) }));
+        else if (type === "reviewed")
+            setFormData((prev) => ({ ...prev, selectedReviewedBy: { ...opt, other: others as UserTypes }, reviewedBy: Number(opt.value) }));
+    }
+
     useEffect(() => {
         getTestMasterList();
         getProductList();
         getTemplateList();
         getTestMasters();
+        getCustomerList()
+        getUserList();
     }, [])
 
     // useEffect(() => {
@@ -237,6 +273,6 @@ export const useCOAReportHooks = () => {
     // }, [formData.productId])
 
     return {
-        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, product_list, onProductChange, test_master_list_by_product, formTestData, onTestChange, handleTranChange, onAddTestData, onRemoveTestData, template_list, test_master_list, onTemplateChange, onTranResultChange, transactionError
+        formData, setFormData, handleChange, intialValues, onSubmit, rowData, onGridEdit, onGridDelete, register, handleSubmit, errors, control, product_list, onProductChange, test_master_list_by_product, formTestData, onTestChange, handleTranChange, onAddTestData, onRemoveTestData, template_list, test_master_list, onTemplateChange, onTranResultChange, transactionError, customer_list, onCustomerChange, user_list, onUserChanged
     }
 }

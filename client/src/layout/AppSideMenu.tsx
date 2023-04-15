@@ -25,6 +25,15 @@ const AppSideMenu = () => {
                 {`User`}
               </Link>
             </li>
+            <li className="sidebar-item">
+              <Link
+                to="/app/customer"
+                className="text-decoration-none sidebar-link"
+                state={'CUSTOMER'}
+              >
+                {`Customer`}
+              </Link>
+            </li>
 
             <li className="sidebar-item">
               <Link

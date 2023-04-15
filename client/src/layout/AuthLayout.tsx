@@ -1,6 +1,15 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { ProductMaster, RoutePages, COATestMaster, UserMaster, COATemplate, COAReportMaster, PrintCOA } from "../components";
+import {
+  ProductMaster,
+  RoutePages,
+  COATestMaster,
+  UserMaster,
+  COATemplate,
+  COAReportMaster,
+  PrintCOA,
+  Customer
+} from "../components";
 import COAReportMasterList from "../components/COAGenerateTest/COATestList";
 import Dashboard from "../components/Dashboard";
 import AppHeaderTop from "./AppHeaderTop";
@@ -30,6 +39,7 @@ const AuthLayout = () => {
               <Route path="/user" element={<UserMaster />} />
               <Route path="/product" element={<ProductMaster />} />
               <Route path="/test" element={<COATestMaster />} />
+              <Route path="/customer" element={<Customer />} />
               <Route path="/template" element={<COATemplate />} />
               <Route path="/testlist" element={<COAReportMasterList />} />
               <Route path="/inittest" element={<COAReportMaster />} />

@@ -6,6 +6,7 @@ const templateRouter = require("./COATemplates");
 //@ts-ignore
 const authRouter = require("./Auth");
 const coaGenerateReportRouter = require("./COAGenerateReport");
+const customerRouter = require("./customer");
 
 const apiRouter = Router();
 
@@ -15,6 +16,7 @@ apiRouter.use("/testmaster", testRouter);
 apiRouter.use("/templates", templateRouter);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/generatereport",coaGenerateReportRouter);
+apiRouter.use("/customer",customerRouter);
 
 module.exports = {
   apiRouter

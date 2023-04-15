@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { ColDef } from "ag-grid-community";
-import { Controller } from "react-hook-form";
-import Select from "react-select";
 import { confirmAlert } from "react-confirm-alert";
 import { useTestMasterHooks } from "./useTestMasterHooks";
 import { AgGridReact } from "../common/AgGridReact";
@@ -20,9 +18,6 @@ const COATestMaster = () => {
     handleSubmit,
     errors,
     onGridDelete,
-    control,
-    product_list,
-    onProductChange
   } = useTestMasterHooks();
 
   const [colDefs] = useState<ColDef[]>([

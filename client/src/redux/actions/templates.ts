@@ -34,7 +34,7 @@ export const deleteTemplateMaster = (id: number, { onSuccess, onError }: Callbac
     })
 }
 const _template_list = (data: any) => {
-    console.log("DATA",data)
+
     return {
         payload: data,
         type: TEMPLATE_LIST
@@ -46,10 +46,9 @@ export const get_templates_list = (callback?: Callbacks) => async (dispatch: any
         method: "get",
         url: `${keys.ServicePath}/api/templates`,
     }).then(async (res: AxiosResponse) => {
-        console.log(res);
+
         const tempData = [...res.data.rows];
-        const tData:any=[];
-        console.log(tempData);
+
         // await tempData.map(x => {
         //     const t = {
         //         ...x,

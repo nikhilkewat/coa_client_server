@@ -58,7 +58,6 @@ export const useProductHooks = () => {
     }
 
     const onGridEdit = (data: any) => {
-        console.log(data.data);
         setFormData(data.data);
         reset(data.data);
     }

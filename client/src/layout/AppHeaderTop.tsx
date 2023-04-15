@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useState } from "react";
+// import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../components/Login/AuthProvider";
 
@@ -10,19 +10,19 @@ type AppHeaderProps = {
 const AppHeaderTop = (props: AppHeaderProps) => {
   const { toggleClick = () => {}, isToggled = false } = props;
   const navigate = useNavigate();
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  // const [dropdownOpen, setDropdownOpen] = useState(false);
   const {
     user: { data },
     signout
   } = useAuth();
-  console.log(data);
-  const onClickDropdownOpen = () => {
-    setDropdownOpen(true);
-  };
 
-  const handleSubmit = () => {
-    setDropdownOpen(false);
-  };
+  // const onClickDropdownOpen = () => {
+  //   setDropdownOpen(true);
+  // };
+
+  // const handleSubmit = () => {
+  //   setDropdownOpen(false);
+  // };
 
   const logout = () => {
     localStorage.clear();

@@ -1,8 +1,7 @@
-import { Actions, Callbacks, TestMasterTypes } from "../../types";
+import { Callbacks } from "../../types";
 import axios from "../../components/common/axios";
 import { keys } from "../../config/dev";
 import { AxiosResponse } from "axios";
-import { TEST_MASTER_LIST, TEST_MASTER_LIST_BY_PRODUCT } from "../constTypes";
 import { COAReportMaster } from "../../components/COAGenerateTest/useCOAReportHooks";
 
 
