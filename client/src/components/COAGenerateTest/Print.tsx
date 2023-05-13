@@ -115,7 +115,10 @@ const Print = () => {
                 </thead>
                 <tbody>
                   {data.details.map((x: COAReportResult, index: number) =>
-                    <tr>
+                    <tr style={{
+                      pageBreakInside: "avoid",
+                      pageBreakAfter: "auto",
+                    }}>
                       <td>
                         {index + 1}
                       </td>

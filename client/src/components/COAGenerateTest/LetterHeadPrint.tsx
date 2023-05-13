@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { format } from "date-fns";
 import { useLocation } from "react-router-dom";
+// import Watermark from "react-awesome-watermark";
 import { COAReportResult } from "./useCOAReportHooks";
 import ReactToPrint from "react-to-print";
 
@@ -39,6 +40,19 @@ const LetterHeadPrint = () => {
           <style>{css}</style>
           <div className="row g-2" ref={componentRef}>
             <div className="col-lg-12">
+              {/* <Watermark
+                text="1"
+                style={{
+                  width: 300,
+                  height: 300,
+                  horizontalSpace: 50,
+                  verticalSpace: 50
+                }}
+                multiple
+                className="space-props-test"
+              >
+                <div className="inner-watermark" />
+              </Watermark> */}
               <table className="table table-sm table-borderless">
                 <thead>
                   <tr>
@@ -66,8 +80,13 @@ const LetterHeadPrint = () => {
                     </td>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
+                <tbody style={{ height: "80vh" }}>
+                  <tr
+                    style={{
+                      pageBreakInside: "avoid",
+                      pageBreakAfter: "auto"
+                    }}
+                  >
                     <td>
                       <table className="table table-sm">
                         <tr>
@@ -159,7 +178,12 @@ const LetterHeadPrint = () => {
                         <tbody>
                           {data.details.map(
                             (x: COAReportResult, index: number) => (
-                              <tr>
+                              <tr
+                                style={{
+                                  pageBreakInside: "avoid",
+                                  pageBreakAfter: "auto"
+                                }}
+                              >
                                 <td>{index + 1}</td>
                                 <td>{x.testName}</td>
                                 <td>{x.result}</td>
@@ -171,6 +195,17 @@ const LetterHeadPrint = () => {
                         </tbody>
                       </table>
                       <br />
+
+                      <br />
+                    </td>
+                  </tr>
+                  <tr
+                    style={{
+                      pageBreakInside: "avoid",
+                      pageBreakAfter: "auto"
+                    }}
+                  >
+                    <td>
                       <table className="table table-sm">
                         <tr>
                           <td>
@@ -185,7 +220,15 @@ const LetterHeadPrint = () => {
                           </td>
                         </tr>
                       </table>
-                      <br />
+                    </td>
+                  </tr>
+                  <tr
+                    style={{
+                      pageBreakInside: "avoid",
+                      pageBreakAfter: "auto"
+                    }}
+                  >
+                    <td>
                       <table className="table table-bordered table-sm">
                         <thead>
                           <tr>
