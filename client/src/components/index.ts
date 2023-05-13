@@ -7,6 +7,7 @@ import COATemplate from "./COATemplates"
 import COAReportMaster from "./COAGenerateTest";
 import PrintCOA from "./COAGenerateTest/Print";
 import Customer from "./Customer";
+import LetterHeadPrint from "./COAGenerateTest/LetterHeadPrint";
 export {
   login,
   RoutePages,
@@ -16,5 +17,6 @@ export {
   COAReportMaster,
   UserMaster,
   PrintCOA,
-  Customer
+  Customer,
+  LetterHeadPrint
 };
