@@ -16,6 +16,7 @@ import { ProductTypes } from "../Product/useProductHooks";
 export type TestMasterTypes = {
     id?: number;
     testName: string;
+    specification: string;
     testResultsGroupConcat: string;
     testResults?: string[];
     productId?: number;
@@ -26,6 +27,7 @@ export type TestMasterTypes = {
 const intialValues: TestMasterTypes = {
     id: 0,
     testName: '',
+    specification: '',
     testResultsGroupConcat: '',
     productId: 0,
     selectedProduct: null,

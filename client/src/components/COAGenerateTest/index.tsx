@@ -113,6 +113,7 @@ const COAReportMaster = () => {
                   name={"testResultsGroupConcat"}
                   placeholder="Result"
                   onChange={handleChange}
+                  type="number"
                   value={formData.selectedProduct?.other?.molecularWeight}
                 />
               </div>

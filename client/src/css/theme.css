@@ -1159,3 +1159,25 @@
 .require {
   color: red;
 }
+
+.footerDiv::before {
+  width: "40%";
+  border-bottom: "80px solid #3A3F91";
+  border-left: "100px solid transparent";
+}
+
+table thead,
+table tfoot {
+  position: sticky;
+}
+table thead {
+  inset-block-start: 0; /* "top" */
+}
+table tfoot {
+  inset-block-end: 0; /* "bottom" */
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+}

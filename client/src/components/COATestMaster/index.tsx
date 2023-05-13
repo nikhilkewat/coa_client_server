@@ -27,7 +27,8 @@ const COATestMaster = () => {
 
   const [colDefs] = useState<ColDef[]>([
     { field: "testName", headerName: "Test" },
-    { field: "productName", headerName: "Product" },
+    { field: "specification", headerName: "Specification" },
+    // { field: "productName", headerName: "Product" },
     { field: "testResultsGroupConcat", headerName: "Results" },
     {
       headerName: "Actions",
@@ -72,7 +73,7 @@ const COATestMaster = () => {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="row g-2">
               <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
-                <label className="form-label">Full Name</label>
+                <label className="form-label">Test Name</label>
                 <input
                   {...register("testName")}
                   className={`form-control ${errors?.testName ? `error` : ``} `}
@@ -88,6 +89,22 @@ const COATestMaster = () => {
                 )}
               </div>
               <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                <label className="form-label">Specification</label>
+                <input
+                  {...register("specification")}
+                  className={`form-control ${errors?.specification ? `error` : ``} `}
+                  name={"specification"}
+                  placeholder="Specification"
+                  onChange={handleChange}
+                  value={formData.specification}
+                />
+                {errors?.specification && (
+                  <div className="invalid-feedback">
+                    {errors?.specification?.message as string}
+                  </div>
+                )}
+              </div>
+              {/* <div className="col-md-6 col-lg-6 col-sm-12 col-xs-12">
                 <label className="form-label">Product</label>
 
                 <Controller
@@ -103,7 +120,7 @@ const COATestMaster = () => {
                     />
                   )}
                 />
-              </div>
+                  </div>*/}
               <div className="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                 <label className="form-label">Results</label>
                 <small

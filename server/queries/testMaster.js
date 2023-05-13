@@ -1,8 +1,8 @@
-const save_testMaster = `INSERT INTO coaTestMaster (testName, productId) VALUES(:testName, :productId);  `;
+const save_testMaster = `INSERT INTO coaTestMaster (testName,specification) VALUES(:testName,:specification);  `;
 
-const update_testMaster = `UPDATE coaTestMaster SET testName=:testName, modifiedDateTime=NOW(),modifiedBy=1 WHERE id=:id`;
+const update_testMaster = `UPDATE coaTestMaster SET testName=:testName,specification=:specification, modifiedDateTime=NOW(),modifiedBy=1 WHERE id=:id`;
 
-const get_testMaster_list = `SELECT cm.id,testName,GROUP_CONCAT(result) testResultsGroupConcat, cm.productId, p.productName, cm.id value, CONCAT_WS(' - ', testName, p.productName) label 
+const get_testMaster_list = `SELECT cm.id,testName,cm.specification,GROUP_CONCAT(result) testResultsGroupConcat, cm.productId, p.productName, cm.id value, CONCAT_WS(' - ', testName, p.productName) label 
 FROM coaTestMaster cm 
 LEFT JOIN coaTestResult cr ON cr.coaTestMasterId = cm. id  
 LEFT JOIN products p ON p.id = cm.productId
@@ -14,7 +14,7 @@ const insert_test_master_result = `INSERT INTO coaTestResult (coaTestMasterId, r
 
 const update_test_master_result = `UPDATE coaTestResult SET isActive=0,isDelete=1 WHERE coaTestMasterId=:coaTestMasterId;`;
 
-const get_test_by_products = `SELECT t.template,cm.testName,p.productName,cm.testName label,cm.id value,t.id templateId,cm.id testId,p.id productId  FROM templates t
+const get_test_by_products = `SELECT t.template,cm.testName,p.productName,cm.testName label,cm.id value,t.id templateId,cm.id testId,p.id productId,cm.specification  FROM templates t
 JOIN template_test_tran tt ON tt.templateId = t.Id
 JOIN coatestmaster cm ON cm.id = tt.testId
 JOIN products p ON p.id = cm.productId
