@@ -8,7 +8,8 @@ import {
   COATemplate,
   COAReportMaster,
   PrintCOA,
-  Customer
+  Customer,
+  LetterHeadPrint
 } from "../components";
 import COAReportMasterList from "../components/COAGenerateTest/COATestList";
 import Dashboard from "../components/Dashboard";
@@ -44,6 +45,7 @@ const AuthLayout = () => {
               <Route path="/testlist" element={<COAReportMasterList />} />
               <Route path="/inittest" element={<COAReportMaster />} />
               <Route path="/printcoa" element={<PrintCOA />} />
+              <Route path="/printcoalh" element={<LetterHeadPrint />} />
               <Route path="/report1" element={<RoutePages />} />
               <Route path="/report2" element={<RoutePages />} />
               <Route path="/report3" element={<RoutePages />} />

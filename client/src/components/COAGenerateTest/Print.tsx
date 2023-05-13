@@ -47,7 +47,7 @@ const Print = () => {
                     </td>
                     <td>
                       <b>{`Customer: `}</b>
-                      {`${data.customerName}`}
+                      {/* {`${data.customerName}`} */}
                     </td>
                   </tr>
                   <tr>
@@ -73,11 +73,11 @@ const Print = () => {
                   <tr>
                     <td>
                       <b>{`Mfg Date: `}</b>
-                      {`${data.mfgDate}`}
+                      {`${format(new Date(data.mfgDate),"dd-MM-yyy")}`}
                     </td>
                     <td>
                       <b>{`Exp Date: `}</b>
-                      {`${data.expDate}`}
+                      {`${format(new Date(data.expDate),"dd-MM-yyy")}`}
                     </td>
                   </tr>
                   <tr>
@@ -140,7 +140,7 @@ const Print = () => {
                 <tr>
                   <td>
                     <b>{`Conclusion: `}</b>
-                    {`The above referred sample complies/ doesn't complies as per `}
+                    {`The above referred sample complies/ `} <span style={{textDecoration:"line-through"}}>{`doesn't complies`}</span> {` as per `}
                     <b>{`FCC + IHS`}</b>
                     {`specification`}
                   </td>

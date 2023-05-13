@@ -41,6 +41,26 @@ const COAReportMasterList = () => {
       }
     },
     {
+      headerName: "LH",
+      width: 60,
+      pinned: "right",
+      filter: false,
+      cellRendererFramework: (val: any) => {
+        return (
+          <Link
+            className="btn btn-success btn-sm agGrid-button"
+            //target="_blank"
+            // rel="noopener noreferrer"
+            to="/app/printcoalh"
+            state={{ data: val.data }}
+          >
+            <i className="fa-solid fa-print" />
+            {` LH`}
+          </Link>
+        );
+      }
+    },
+    {
       headerName: "Actions",
       width: 100,
       pinned: "right",

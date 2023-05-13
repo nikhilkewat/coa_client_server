@@ -122,12 +122,13 @@ const ProductMaster = () => {
                 )}
               </div>
               <div className="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                <label className="form-label">Molecular Weight</label>
+                <label className="form-label">{`Molecular Weight (gm/mol)`}</label>
                 <input
                   className={`form-control`}
                   name={"molecularWeight"}
                   placeholder="Molecular Weight"
                   onChange={handleChange}
+                  type="number"
                   value={formData.molecularWeight}
                 />
               </div>
