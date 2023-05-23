@@ -1177,7 +1177,36 @@ table tfoot {
   inset-block-end: 0; /* "bottom" */
 }
 
+.empty-header {
+  height: 55px;
+}
+
+.empty-footer {
+  height: 140px;
+}
+.header {
+  position: fixed;
+  top: 0;
+  height:55px;
+}
+
 .footer {
+  height: 140px;
   position: fixed;
   bottom: 0;
+  padding: 0 !important;
+}
+
+.headerprint,
+.footerprint {
+  display: none;
+}
+@media print {
+  .headerprint,
+  .footerprint {
+    display: block;
+  }
+  .no-print{
+    display: none;
+  }
 }

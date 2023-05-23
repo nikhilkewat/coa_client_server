@@ -41,14 +41,14 @@ const Print = () => {
               <table className="table table-bordered table-sm">
                 <tbody>
                   <tr>
-                    <td>
+                    <td colSpan={2}>
                       <b>{`Product: `}</b>
                       {`${data.productName}`}
                     </td>
-                    <td>
+                    {/* <td>
                       <b>{`Customer: `}</b>
-                      {/* {`${data.customerName}`} */}
-                    </td>
+                      {`${data.customerName}`}
+                    </td> */}
                   </tr>
                   <tr>
                     <td>

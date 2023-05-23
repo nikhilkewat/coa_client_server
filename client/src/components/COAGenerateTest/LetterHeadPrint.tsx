@@ -33,6 +33,7 @@ const LetterHeadPrint = () => {
                     <span className="ml-2">{"Print"}</span>
                   </button>
                 )}
+                documentTitle={`CAS-NO-${data.casNo}`}
                 content={() => componentRef.current}
               />
             </div>
@@ -40,22 +41,96 @@ const LetterHeadPrint = () => {
           <style>{css}</style>
           <div className="row g-2" ref={componentRef}>
             <div className="col-lg-12">
-              {/* <Watermark
-                text="1"
+              <div
+                className="col-lg-12 header headerprint"
                 style={{
-                  width: 300,
-                  height: 300,
-                  horizontalSpace: 50,
-                  verticalSpace: 50
+                  display: "flex",
+                  justifyContent: "space-between"
                 }}
-                multiple
-                className="space-props-test"
               >
-                <div className="inner-watermark" />
-              </Watermark> */}
+                <img
+                  src={require("../../Assets/images/coa_logo.jpeg")}
+                  alt="coa_logo"
+                  height={50}
+                />
+                <div
+                  style={{
+                    width: "40%",
+                    borderLeft: "50px solid transparent",
+                    borderTop: "50px solid #3A3F91"
+                  }}
+                ></div>
+              </div>
+              <div
+                className="col-lg-12 footer footerprint"
+                style={{ fontSize: "small" }}
+                //id="footer"
+              >
+                <div className="d-flex justify-content-between">
+                  <div>
+                    <p>
+                      <b>{`Head Office :`}</b>
+                      <span>{`Plot No. 475, Post: Luna, Taluka: Padra, District: Vadodara,Pin: 391440`}</span>
+                      <br />
+                      {`Gujarat, India`}
+                    </p>
+                    <p>
+                      <b>{`USA Office :`}</b>
+                      <span>{`MS FINE CHEM 57 Bright Ridge dr, Schaumburg, IL 60194`}</span>
+                    </p>
+                  </div>
+                  <div className="d-flex flex-fill ">
+                    <div
+                      style={{
+                        width: "9%",
+                        borderBottom: "103px solid #3A3F91",
+                        borderLeft: "100px solid transparent"
+                      }}
+                      className="footerDiv "
+                    ></div>
+                    <div
+                      className="d-flex flex-column flex-fill align-items-end pe-1 justify-content-center"
+                      style={{
+                        color: "#A8CF42",
+                        fontWeight: "bold",
+                        backgroundColor: "#3A3F91",
+                        fontSize: "x-small"
+                      }}
+                    >
+                      <p>
+                        <label>
+                          <i className="fa-solid fa-globe"></i>
+                          {` www.valajipharmachem.co.in`}{" "}
+                        </label>
+                      </p>
+                      <p>
+                        <label>
+                          <i className="fa-solid fa-envelope"></i>
+                          {` valajipharmachem@gmail.com`}{" "}
+                        </label>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    backgroundColor: "#A8CF42",
+                    color: "#3A3F91",
+                    fontWeight: "bold",
+                    textAlign: "center"
+                  }}
+                >{`ISO, FDCA, FSSAI, GMP, GLP, KOSHER & HALAL CERTIFIED COMPANY`}</div>
+              </div>
               <table className="table table-sm table-borderless">
                 <thead>
-                  <tr>
+                  <th>
+                    <td>
+                      <div className="empty-header"></div>
+                    </td>
+                  </th>
+                </thead>
+                {/* <thead>
+                  <th>
                     <td>
                       <div
                         className="col-lg-12"
@@ -78,8 +153,8 @@ const LetterHeadPrint = () => {
                         ></div>
                       </div>
                     </td>
-                  </tr>
-                </thead>
+                  </th>
+                </thead> */}
                 <tbody style={{ height: "80vh" }}>
                   <tr
                     style={{
@@ -103,14 +178,14 @@ const LetterHeadPrint = () => {
                       <table className="table table-bordered table-sm">
                         <tbody>
                           <tr>
-                            <td>
+                            <td colSpan={2}>
                               <b>{`Product: `}</b>
                               {`${data.productName}`}
                             </td>
-                            <td>
+                            {/* <td>
                               <b>{`Customer: `}</b>
-                              {/* {`${data.customerName}`} */}
-                            </td>
+                              {`${data.customerName}`}
+                            </td> */}
                           </tr>
                           <tr>
                             <td>
@@ -256,13 +331,17 @@ const LetterHeadPrint = () => {
                     </td>
                   </tr>
                 </tbody>
-                <tfoot style={{ bottom: 0 }}>
+                <tfoot>
+                  <div className="empty-footer"></div>
+                </tfoot>
+
+                {/* <tfoot style={{ bottom: 0 }}>
                   <tr>
                     <td>
                       <div
                         className="col-lg-12"
                         style={{ bottom: 0, fontSize: "small" }}
-                        id="footer"
+                        //id="footer"
                       >
                         <div className="d-flex justify-content-between">
                           <div>
@@ -321,7 +400,7 @@ const LetterHeadPrint = () => {
                       </div>
                     </td>
                   </tr>
-                </tfoot>
+                </tfoot> */}
               </table>
             </div>
           </div>
